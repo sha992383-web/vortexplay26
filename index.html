@@ -11,7 +11,7 @@ body{font-family:'Rajdhani',sans-serif;min-height:100vh;color:#f5e6a3;overflow-x
     background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.25),transparent 60%),
                radial-gradient(circle at 20% 80%,rgba(75,0,130,.4),transparent 50%),
                linear-gradient(160deg,#0d0618 0%,#2d1b4e 45%,#1a0b2e 100%);
-    background-attachment:fixed;transition:background .5s}
+    background-attachment:fixed;transition:background .5s;padding-bottom:80px}
 body.has-bg{background-size:cover;background-position:center}
 header{position:relative;z-index:10;padding:40px 20px 20px;text-align:center}
 .logo-ring{position:relative;display:inline-block;margin-bottom:20px}
@@ -42,7 +42,19 @@ h1{font-family:'Cinzel',serif;font-size:clamp(30px,8vw,46px);letter-spacing:4px;
 .btn:hover{background:rgba(45,27,78,.9);box-shadow:inset 0 0 30px rgba(255,215,0,.2)}
 .btn .ic{font-size:42px;margin-bottom:8px;filter:drop-shadow(0 0 12px #ffd700)}
 .btn .nm{font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:1px;color:#ffd700}
-.adm{display:block;text-align:center;margin-top:25px;color:#d4af37;text-decoration:none;font-size:12px;letter-spacing:2px;opacity:.8;cursor:pointer}
+
+/* پنل مدیریت پایین صفحه */
+.admin-bar{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(90deg,#0d0618,#2d1b4e,#1a0b2e);
+    border-top:3px solid #ffd700;padding:15px 20px;z-index:100;
+    box-shadow:0 -5px 30px rgba(255,215,0,.3);backdrop-filter:blur(10px)}
+.admin-btn{display:flex;align-items:center;justify-content:center;gap:10px;
+    background:linear-gradient(90deg,#ffd700,#b8860b);color:#1a0b2e;border:none;
+    padding:12px 25px;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;
+    font-family:'Cinzel',serif;width:100%;max-width:400px;margin:0 auto;
+    box-shadow:0 0 20px rgba(255,215,0,.5);transition:.3s}
+.admin-btn:hover{transform:scale(1.02);box-shadow:0 0 30px rgba(255,215,0,.7)}
+.admin-btn:active{transform:scale(.98)}
+
 .fx{position:fixed;width:40px;height:40px;border:3px solid #ffd700;background:rgba(255,255,255,.95);
     border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%) scale(0);
     animation:rip .6s ease-out forwards;box-shadow:0 0 20px rgba(255,215,0,.8)}
@@ -106,7 +118,14 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#ffd700}
 <img id="heroImg" class="hero" style="display:none">
 </header>
 <main class="menu" id="menuGrid"></main>
-<a class="adm" onclick="showLogin()">⚙️ پنل مدیریت</a>
+</div>
+
+<!-- پنل مدیریت پایین صفحه -->
+<div class="admin-bar">
+<button class="admin-btn" onclick="showLogin()">
+<span>⚙️</span>
+<span>پنل مدیریت</span>
+</button>
 </div>
 
 <div class="modal" id="catModal">
@@ -203,7 +222,7 @@ function save(){localStorage.setItem('vortex_data',JSON.stringify(data));}
 
 function render(){
     document.getElementById('titleText').textContent=data.title;
-    document.getElementById('subtitleText').textContent='✦ '+data.subtitle+' ';
+    document.getElementById('subtitleText').textContent='✦ '+data.subtitle+' ✦';
     
     if(data.logo){document.getElementById('logoImg').src=data.logo;}
     if(data.hero){
@@ -405,7 +424,7 @@ function deleteMsg(i){
 }
 
 document.addEventListener('click',e=>{
-    if(e.target.closest('input,button,select,textarea,.adm'))return;
+    if(e.target.closest('input,button,select,textarea,.admin-btn'))return;
     const r=document.createElement('div');
     r.className='fx';
     r.style.left=e.clientX+'px';
