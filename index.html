@@ -1,439 +1,428 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VORTEXPLAY</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Rajdhani',sans-serif;min-height:100vh;color:#f5e6a3;overflow-x:hidden;
-    background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.25),transparent 60%),
-               radial-gradient(circle at 20% 80%,rgba(75,0,130,.4),transparent 50%),
-               linear-gradient(160deg,#0d0618 0%,#2d1b4e 45%,#1a0b2e 100%);
-    background-attachment:fixed;transition:background .5s;padding-bottom:80px}
-body.has-bg{background-size:cover;background-position:center}
-header{position:relative;z-index:10;padding:40px 20px 20px;text-align:center}
-.logo-ring{position:relative;display:inline-block;margin-bottom:20px}
-.logo-ring::before{content:'';position:absolute;inset:-8px;border-radius:50%;
-    background:conic-gradient(from 0deg,#ffd700,#b8860b,#fff2b0,#d4af37,#8b6914,#ffd700);
-    animation:spin 5s linear infinite}
-.logo-ring::after{content:'';position:absolute;inset:-8px;border-radius:50%;
-    background:conic-gradient(from 0deg,#ffd700,#b8860b,#fff2b0,#d4af37,#8b6914,#ffd700);
-    animation:spin 5s linear infinite;filter:blur(18px);opacity:.8}
-@keyframes spin{to{transform:rotate(360deg)}}
-.logo{position:relative;z-index:1;width:160px;height:160px;border-radius:50%;object-fit:cover;
-    border:4px solid #ffd700;box-shadow:0 0 40px rgba(255,215,0,.5);background:#1a0b2e}
-.crown{font-size:34px;display:block;margin-bottom:8px;filter:drop-shadow(0 0 15px #ffd700);animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-h1{font-family:'Cinzel',serif;font-size:clamp(30px,8vw,46px);letter-spacing:4px;font-weight:900;
-    color:#ffd700;text-shadow:0 0 20px #ffd700,0 0 40px rgba(255,215,0,.3)}
-.sub{font-size:14px;letter-spacing:3px;margin:10px 0 25px;color:#d4af37}
-.hero{width:95%;max-width:440px;border-radius:20px;margin:0 auto 35px;display:block;
-    border:4px solid #ffd700;box-shadow:0 0 40px rgba(255,215,0,.4),0 15px 50px rgba(0,0,0,.5)}
-.menu{max-width:550px;margin:0 auto;padding:0 20px 50px;display:grid;grid-template-columns:repeat(2,1fr);gap:20px;position:relative;z-index:10}
-.bw{border-radius:18px;padding:3px;background:conic-gradient(from 0deg,#ffd700,#b8860b,#fff2b0,#d4af37,#8b6914,#ffd700);animation:hue 6s linear infinite;box-shadow:0 5px 25px rgba(255,215,0,.25)}
-@keyframes hue{to{filter:hue-rotate(360deg)}}
-.btn{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 15px;
-    border-radius:16px;text-decoration:none;color:#f5e6a3;
-    background:rgba(26,11,46,.8);backdrop-filter:blur(12px);
-    border:2px solid rgba(255,215,0,.5);transition:.3s;cursor:pointer}
-.btn:active{transform:scale(.95)}
-.btn:hover{background:rgba(45,27,78,.9);box-shadow:inset 0 0 30px rgba(255,215,0,.2)}
-.btn .ic{font-size:42px;margin-bottom:8px;filter:drop-shadow(0 0 12px #ffd700)}
-.btn .nm{font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:1px;color:#ffd700}
-
-/* پنل مدیریت پایین صفحه */
-.admin-bar{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(90deg,#0d0618,#2d1b4e,#1a0b2e);
-    border-top:3px solid #ffd700;padding:15px 20px;z-index:100;
-    box-shadow:0 -5px 30px rgba(255,215,0,.3);backdrop-filter:blur(10px)}
-.admin-btn{display:flex;align-items:center;justify-content:center;gap:10px;
-    background:linear-gradient(90deg,#ffd700,#b8860b);color:#1a0b2e;border:none;
-    padding:12px 25px;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;
-    font-family:'Cinzel',serif;width:100%;max-width:400px;margin:0 auto;
-    box-shadow:0 0 20px rgba(255,215,0,.5);transition:.3s}
-.admin-btn:hover{transform:scale(1.02);box-shadow:0 0 30px rgba(255,215,0,.7)}
-.admin-btn:active{transform:scale(.98)}
-
-.fx{position:fixed;width:40px;height:40px;border:3px solid #ffd700;background:rgba(255,255,255,.95);
-    border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%) scale(0);
-    animation:rip .6s ease-out forwards;box-shadow:0 0 20px rgba(255,215,0,.8)}
-@keyframes rip{0%{transform:translate(-50%,-50%) scale(0);opacity:1}100%{transform:translate(-50%,-50%) scale(3);opacity:0}}
-
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;overflow-y:auto;padding:20px}
-.modal.active{display:block}
-.modal-content{max-width:720px;margin:20px auto;background:linear-gradient(160deg,#0d0618,#2d1b4e,#1a0b2e);
-    border:2px solid rgba(255,215,0,.4);border-radius:18px;padding:25px}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;
-    padding-bottom:15px;border-bottom:2px solid rgba(255,215,0,.3)}
-.modal-title{font-family:'Cinzel',serif;color:#ffd700;font-size:20px}
-.close-btn{background:linear-gradient(135deg,#ff0066,#ffd700);color:#1a0b2e;border:none;
-    padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:700;font-family:'Cinzel',serif}
-
-.card{background:rgba(26,11,46,.75);backdrop-filter:blur(10px);border:2px solid rgba(255,215,0,.4);
-    border-radius:16px;padding:16px;margin-bottom:15px}
-.card img{width:100%;height:190px;object-fit:cover;border-radius:12px;margin-bottom:10px;border:2px solid #ffd700}
-.card h3{font-family:'Cinzel',serif;font-size:16px;margin-bottom:6px;color:#ffd700}
-.card p{font-size:13px;line-height:1.8;margin-bottom:10px;color:#e8d9a0}
-.dl{display:inline-block;padding:10px 20px;border-radius:10px;background:linear-gradient(135deg,#ffd700,#b8860b);
-    color:#1a0b2e;text-decoration:none;font-family:'Cinzel',serif;font-weight:700;font-size:12px}
-.empty{text-align:center;padding:40px 20px;color:#d4af37}
-.empty .big{font-size:55px;display:block;margin-bottom:12px}
-
-.form-group{margin-bottom:15px}
-label{display:block;color:#d4af37;font-size:13px;margin-bottom:5px}
-input,select,textarea{width:100%;padding:11px;border:2px solid rgba(255,215,0,.3);border-radius:8px;
-    background:rgba(13,6,24,.7);color:#f5e6a3;font-size:14px;font-family:inherit}
-textarea{min-height:80px;resize:vertical}
-input:focus,select:focus,textarea:focus{outline:none;border-color:#ffd700}
-.btn-submit{background:linear-gradient(90deg,#ffd700,#b8860b);color:#1a0b2e;border:none;padding:12px 22px;
-    border-radius:10px;font-weight:800;font-size:14px;cursor:pointer;width:100%;font-family:'Cinzel',serif}
-.btn-submit:hover{opacity:.9}
-.btn-danger{background:linear-gradient(90deg,#ff0044,#ff0066);color:#fff}
-
-.login-card{max-width:360px;margin:80px auto;text-align:center;padding:35px;
-    background:rgba(26,11,46,.9);border:2px solid rgba(255,215,0,.5);border-radius:18px}
-.login-card .crown{font-size:45px}
-.err{color:#ff5577;font-size:13px;margin-bottom:12px}
-
-.admin-sec{background:rgba(26,11,46,.8);border:2px solid rgba(255,215,0,.35);border-radius:14px;padding:20px;margin-bottom:20px}
-.admin-sec h2{color:#ffd700;font-size:17px;margin-bottom:14px;font-family:'Cinzel',serif}
-.admin-item{background:rgba(13,6,24,.6);border:1px solid rgba(255,215,0,.25);border-radius:10px;padding:12px;
-    margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.preview{max-width:120px;max-height:120px;border-radius:10px;border:2px solid #ffd700;margin-top:10px}
-
-@media(max-width:450px){.menu{grid-template-columns:1fr}.logo{width:130px;height:130px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEXPLAY 👑 ROYAL</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --طلایی: #ffd700;
+            --طلایی‌تیره: #b8860b;
+            --بنفش: #2d1b4e;
+            --بنفش‌عمیق: #0d0618;
+            --کرم: #f5e6a3;
+            --سایه: 0 0 20px rgba(255,215,0,0.4), 0 0 40px rgba(184,134,11,0.2);
+        }
+        * {margin:0; padding:0; box-sizing:border-box;}
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--بنفش‌عمیق);
+            color: var(--کرم);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        /* ذرات طلایی */
+        .ذره {
+            position: fixed;
+            width: 3px; height: 3px;
+            background: var(--طلایی);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: شناور 8s infinite ease-in-out;
+            opacity: 0.6;
+        }
+        @keyframes شناور {
+            0% {transform: translateY(100vh); opacity: 0;}
+            10% {transform: translateY(-10px); opacity: 1;}
+        }
+        .کانتینر {max-width: 520px; margin: 0 auto; padding: 25px 20px 80px; position: relative; z-index: 10;}
+        /* سرتیتر */
+        .سرتیتر {text-align: center; padding: 30px 0; position: relative;}
+        .تاج {font-size: 40px; animation: تاج‌شناور 3s infinite ease-in-out;}
+        @keyframes تاج‌شناور {
+            0%,100% {transform: translateY(0);}
+            50% {transform: translateY(-8px);}
+        }
+        .حلقه {
+            width: 160px; height: 160px;
+            margin: 0 auto -80px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--طلایی), var(--طلایی‌تیره), #8b6914, var(--طلایی));
+            animation: چرخش 8s linear infinite;
+            opacity: 0.25;
+            filter: blur(1px);
+        }
+        @keyframes چرخش {to {transform: rotate(360deg);}}
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 34px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--طلایی), #fff1a0, var(--طلایی));
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-top: 40px;
+            text-shadow: 0 0 30px rgba(255,215,0,0.3);
+        }
+        .زیرعنوان {font-size: 15px; color: #9a8855; margin-top: 8px; letter-spacing: 2px;}
+        /* کارت‌ها */
+        .باکس {
+            background: rgba(45,27,78,0.6);
+            border: 1px solid rgba(255,215,0,0.25);
+            border-radius: 12px;
+            padding: 22px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 0 20px rgba(255,215,0,0.05);
+        }
+        h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--طلایی);
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        /* دسته‌بندی‌ها */
+        .دسته‌ها {display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;}
+        .دسته {
+            padding: 10px 16px;
+            border: 1px solid rgba(255,215,0,0.35);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: .3s;
+            font-weight: 600;
+            background: rgba(255,215,0,0.05);
+        }
+        .دسته.فعال {
+            background: rgba(255,215,0,0.18);
+            border-color: var(--طلایی);
+            box-shadow: 0 0 12px rgba(255,215,0,0.3);
+        }
+        /* ورودی‌ها */
+        input, textarea, select {
+            width: 100%;
+            background: rgba(13,6,24,0.6);
+            border: 1px solid rgba(255,215,0,0.25);
+            padding: 13px;
+            color: #fff;
+            font-size: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            outline: none;
+            font-family: inherit;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--طلایی);
+            box-shadow: 0 0 10px rgba(255,215,0,0.3);
+        }
+        /* دکمه‌ها */
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .3s;
+            font-family: inherit;
+        }
+        .دکمه‌طلایی {
+            background: linear-gradient(90deg, var(--طلایی), var(--طلایی‌تیره));
+            color: #000;
+            box-shadow: var(--سایه);
+        }
+        .دکمه‌طلایی:hover {transform: translateY(-2px); filter: brightness(1.1);}
+        .دکمه‌بنفش {
+            background: transparent;
+            border: 1px solid var(--طلایی);
+            color: var(--طلایی);
+        }
+        .دکمه‌بنفش:hover {background: rgba(255,215,0,0.1);}
+        /* پیش‌نمایش عکس */
+        .پیش‌نمایش {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+            border: 2px solid rgba(255,215,0,0.3);
+        }
+        /* آیتم‌ها */
+        .آیتم {
+            background: rgba(13,6,24,0.5);
+            border-right: 3px solid var(--طلایی);
+            padding: 18px;
+            margin-top: 15px;
+            border-radius: 8px;
+            transition: .3s;
+        }
+        .آیتم:hover {border-right-width: 5px; background: rgba(255,215,0,0.05);}
+        .آیتم_عکس {max-width: 100%; border-radius: 6px; margin: 12px 0;}
+        .آیتم_دسته {
+            display: inline-block;
+            font-size: 12px;
+            background: rgba(255,215,0,0.15);
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        .آیتم_لینک {
+            color: #ffd700;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            border-bottom: 1px dashed rgba(255,215,0,0.4);
+        }
+        .آیتم_زمان {font-size: 12px; color: #665533; margin-top: 10px;}
+        .خالی {text-align: center; color: #554422; padding: 35px; font-size: 15px;}
+        .وضعیت {margin-top: 12px; font-size: 14px;}
+        .موفق {color: #ffd700;}
+        .خطا {color: #ff5555;}
+        .پنهان {display: none !important;}
+        /* نوار پایین */
+        .نوارپایین {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(13,6,24,0.9);
+            border-top: 1px solid rgba(255,215,0,0.2);
+            padding: 12px 20px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .دکمه‌کوچیک {width: auto; padding: 8px 16px; font-size: 14px;}
+    </style>
 </head>
 <body>
+    <!-- ذرات طلایی -->
+    <script>for(let i=0;i<35;i++){let d=document.createElement('div');d.className='ذره';d.style.left=Math.random()*100+'%';d.style.animationDelay=Math.random()*8+'s';d.style.animationDuration=(6+Math.random()*5)+'s';document.write(d.outerHTML);}</script>
 
-<div id="mainPage">
-<header>
-<span class="crown">👑</span>
-<div class="logo-ring">
-<img id="logoImg" class="logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231a0b2e' width='100' height='100'/><text x='50' y='55' font-size='40' text-anchor='middle' fill='%23ffd700' font-family='serif'>VP</text></svg>">
-</div>
-<h1 id="titleText">VORTEXPLAY</h1>
-<div class="sub" id="subtitleText">✦ ROYAL GAMING EMPIRE ✦</div>
-<img id="heroImg" class="hero" style="display:none">
-</header>
-<main class="menu" id="menuGrid"></main>
-</div>
+    <div class="کانتینر">
+        <!-- سرتیتر -->
+        <div class="سرتیتر">
+            <div class="حلقه"></div>
+            <div class="تاج">👑</div>
+            <h1>VORTEXPLAY</h1>
+            <p class="زیرعنوان">ROYAL GAMING EMPIRE</p>
+        </div>
 
-<!-- پنل مدیریت پایین صفحه -->
-<div class="admin-bar">
-<button class="admin-btn" onclick="showLogin()">
-<span>⚙️</span>
-<span>پنل مدیریت</span>
-</button>
-</div>
+        <!-- دسته‌بندی‌ها -->
+        <div class="باکس">
+            <h3>📂 دسته‌بندی‌ها</h3>
+            <div class="دسته‌ها">
+                <span class="دسته فعال" onclick="انتخاب_دسته('همه')">همه</span>
+                <span class="دسته" onclick="انتخاب_دسته('بازی')">بازی</span>
+                <span class="دسته" onclick="انتخاب_دسته('نرم‌افزار')">نرم‌افزار</span>
+                <span class="دسته" onclick="انتخاب_دسته('آموزش')">آموزش</span>
+                <span class="دسته" onclick="انتخاب_دسته('متفرقه')">متفرقه</span>
+            </div>
+        </div>
 
-<div class="modal" id="catModal">
-<div class="modal-content">
-<div class="modal-header">
-<div class="modal-title" id="catTitle"></div>
-<button class="close-btn" onclick="closeModal('catModal')">✕</button>
-</div>
-<div id="catItems"></div>
-</div>
-</div>
+        <!-- لیست پیام‌ها -->
+        <div class="باکس">
+            <h3>📋 بانک فایل‌ها</h3>
+            <div id="لیست">
+                <p class="خالی">در حال بارگذاری از قلمرو پادشاهی... 👑</p>
+            </div>
+        </div>
 
-<div class="modal" id="loginModal">
-<div class="login-card">
-<span class="crown">👑</span>
-<h2 style="font-family:'Cinzel',serif;color:#ffd700;margin-bottom:22px">ورود به پنل</h2>
-<div class="err" id="loginErr" style="display:none">❌ رمز اشتباه است!</div>
-<input type="password" id="passInput" placeholder="رمز ۳۲ رقمی" style="text-align:center;letter-spacing:2px">
-<button class="btn-submit" onclick="doLogin()" style="margin-top:12px">🔓 ورود</button>
-<button class="btn-submit" onclick="closeModal('loginModal')" style="margin-top:8px;background:rgba(255,255,255,.1);color:#d4af37">انصراف</button>
-</div>
-</div>
+        <!-- ورود مدیریت -->
+        <div class="باکس" id="بخش_ورود">
+            <h3>🔐 ورود به قلمرو مدیریت</h3>
+            <input type="password" id="رمز" placeholder="رمز ۳۲ رقمی را وارد کن">
+            <button class="دکمه‌بنفش" onclick="بررسی_رمز()">ورود</button>
+            <p id="وضعیت_ورود" class="وضعیت"></p>
+        </div>
 
-<div class="modal" id="adminModal">
-<div class="modal-content">
-<div class="modal-header">
-<div class="modal-title">👑 پنل مدیریت</div>
-<button class="close-btn" onclick="closeAdmin()">✕</button>
-</div>
+        <!-- فرم مدیریت (مخفی) -->
+        <div class="باکس پنهان" id="بخش_مدیریت">
+            <h3>✍️ ارسال فرمان جدید</h3>
+            <select id="انتخاب_دسته_فرم">
+                <option value="بازی">بازی</option>
+                <option value="نرم‌افزار">نرم‌افزار</option>
+                <option value="آموزش">آموزش</option>
+                <option value="متفرقه">متفرقه</option>
+            </select>
+            <textarea id="متن_فرم" rows="3" placeholder="نام فایل، توضیحات یا لینک دانلود..."></textarea>
+            
+            <label style="margin-top:15px; display:block; color:#9a8855;">📸 عکس کاور از گالری:</label>
+            <input type="file" id="عکس_ورودی" accept="image/*" onchange="پیش‌نمایش_عکس(this)">
+            <img id="پیش‌نمایش_عکس" class="پیش‌نمایش" alt="پیش‌نمایش">
+            
+            <input type="text" id="لینک_فرم" placeholder="لینک دانلود (اختیاری)">
+            <button class="دکمه‌طلایی" onclick="ارسال_فرمان()">📤 ارسال به قلمرو</button>
+            <p id="وضعیت_ارسال" class="وضعیت"></p>
+            <button class="دکمه‌بنفش دکمه‌کوچیک" style="margin-top:15px;" onclick="خروج()">خروج از قلمرو</button>
+        </div>
+    </div>
 
-<div class="admin-sec">
-<h2>📝 متن‌ها</h2>
-<div class="form-group"><label>عنوان سایت</label><input id="setTitle" type="text"></div>
-<div class="form-group"><label>زیرعنوان</label><input id="setSubtitle" type="text"></div>
-<button class="btn-submit" onclick="saveTexts()">💾 ذخیره متن‌ها</button>
-</div>
-
-<div class="admin-sec">
-<h2>🖼️ تصاویر (از گالری)</h2>
-<div class="form-group"><label>لوگو</label><input type="file" id="logoFile" accept="image/*" onchange="uploadImg('logo')"></div>
-<img id="logoPreview" class="preview" style="display:none">
-<div class="form-group" style="margin-top:15px"><label>کاور بزرگ وسط</label><input type="file" id="heroFile" accept="image/*" onchange="uploadImg('hero')"></div>
-<img id="heroPreview" class="preview" style="display:none">
-<div class="form-group" style="margin-top:15px"><label>پس‌زمینه کل سایت</label><input type="file" id="bgFile" accept="image/*" onchange="uploadImg('bg')"></div>
-<button class="btn-submit btn-danger" onclick="resetImages()" style="margin-top:10px">🗑 حذف همه تصاویر</button>
-</div>
-
-<div class="admin-sec">
-<h2>📂 مدیریت دسته‌بندی‌ها</h2>
-<div class="form-group"><label>نام دسته‌بندی جدید</label><input id="newCat" placeholder="مثلاً: اخبار"></div>
-<div class="form-group"><label>آیکون</label><input id="newCatIcon" placeholder="📰" maxlength="2"></div>
-<button class="btn-submit" onclick="addCat()">➕ افزودن دسته</button>
-<div style="margin-top:15px" id="catList"></div>
-</div>
-
-<div class="admin-sec">
-<h2>➕ افزودن پیام / آیتم</h2>
-<div class="form-group"><label>دسته‌بندی</label><select id="msgCat"></select></div>
-<div class="form-group"><label>عنوان</label><input id="msgTitle" type="text"></div>
-<div class="form-group"><label>توضیحات</label><textarea id="msgDesc"></textarea></div>
-<div class="form-group"><label>لینک دانلود (اختیاری)</label><input id="msgLink" type="url" placeholder="https://..."></div>
-<div class="form-group"><label>عکس کاور (اختیاری)</label><input type="file" id="msgCover" accept="image/*"></div>
-<button class="btn-submit" onclick="addMessage()">➕ افزودن</button>
-</div>
-
-<div class="admin-sec">
-<h2>📋 همه پیام‌ها</h2>
-<div id="allMsgs"></div>
-</div>
-
-<button class="btn-submit btn-danger" onclick="logoutAdmin()" style="margin-top:15px">🚪 خروج از پنل</button>
-</div>
-</div>
+    <!-- نوار پایین -->
+    <div class="نوارپایین">
+        <button class="دکمه‌بنفش دکمه‌کوچیک" style="width:100%; margin:0;" onclick="اسکرول_به_بالا()">⚙️ پنل مدیریت</button>
+    </div>
 
 <script>
-const ADMIN_PASS='32948573029485730294857302948573';
-let data=JSON.parse(localStorage.getItem('vortex_data'))||{
-    title:'VORTEXPLAY',
-    subtitle:'ROYAL GAMING EMPIRE',
-    logo:'',
-    hero:'',
-    bg:'',
-    categories:[
-        {name:'payload',display:'PAYLOAD',icon:'👑'},
-        {name:'backup',display:'BACKUP & آموزش',icon:'💾'},
-        {name:'game',display:'GAME',icon:'🎮'},
-        {name:'gallery',display:'عکس‌های بازی',icon:'🖼️'}
-    ],
-    messages:[]
-};
-let isAdmin=false;
+// ⚙ تنظیمات — از صفحه Supabase بگیر
+const SUPABASE_URL = "آدرس-پروژه-سوپابیس";
+const SUPABASE_KEY = "کلید-عمومی-سوپابیس";
+const رمز_مدیریت = "VP26-9K7X-QR4M-2P8Z-L5DN-3F9G-7H2J-6K4L"; // رمز ۳۲ رقمی
 
-function save(){localStorage.setItem('vortex_data',JSON.stringify(data));}
+// اتصال به دیتابیس
+const { createClient } = supabase;
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function render(){
-    document.getElementById('titleText').textContent=data.title;
-    document.getElementById('subtitleText').textContent='✦ '+data.subtitle+' ✦';
+let دسترسی_مدیریت = false;
+let دسته_فعال = "همه";
+let همه_پیامها = [];
+
+// اسکرول به بالا
+function اسکرول_به_بالا() {
+    window.scrollTo({top:0, behavior:'smooth'});
+    document.getElementById('رمز').focus();
+}
+
+// بررسی رمز
+function بررسی_رمز() {
+    const ورودی = document.getElementById('رمز').value.trim();
+    const وضعیت = document.getElementById('وضعیت_ورود');
     
-    if(data.logo){document.getElementById('logoImg').src=data.logo;}
-    if(data.hero){
-        const h=document.getElementById('heroImg');
-        h.src=data.hero;h.style.display='block';
-    }
-    if(data.bg){
-        document.body.style.backgroundImage=`url(${data.bg})`;
-        document.body.classList.add('has-bg');
-    }
-    
-    const grid=document.getElementById('menuGrid');
-    grid.innerHTML='';
-    data.categories.forEach(c=>{
-        const count=data.messages.filter(m=>m.cat===c.name).length;
-        grid.innerHTML+=`
-        <div class="bw"><div class="btn" onclick="openCat('${c.name}')">
-            <div class="ic">${c.icon}</div>
-            <div class="nm">${c.display}</div>
-            <div style="color:#d4af37;font-size:12px;margin-top:5px">(${count} آیتم)</div>
-        </div></div>`;
-    });
-}
-
-function openCat(name){
-    const c=data.categories.find(x=>x.name===name);
-    if(!c)return;
-    document.getElementById('catTitle').textContent=`${c.icon} ${c.display}`;
-    const msgs=data.messages.filter(m=>m.cat===name);
-    const box=document.getElementById('catItems');
-    if(!msgs.length){
-        box.innerHTML='<div class="empty"><span class="big">👑</span>هنوز پیامی نیست!</div>';
-    }else{
-        box.innerHTML=msgs.map(m=>`
-            <div class="card">
-                ${m.cover?`<img src="${m.cover}">`:''}
-                <h3>${m.title}</h3>
-                ${m.desc?`<p>${m.desc}</p>`:''}
-                ${m.link?`<a href="${m.link}" target="_blank" class="dl">⬇️ دانلود</a>`:''}
-            </div>
-        `).join('');
-    }
-    document.getElementById('catModal').classList.add('active');
-}
-
-function closeModal(id){document.getElementById(id).classList.remove('active');}
-
-function showLogin(){
-    if(isAdmin){openAdmin();return;}
-    document.getElementById('loginErr').style.display='none';
-    document.getElementById('passInput').value='';
-    document.getElementById('loginModal').classList.add('active');
-}
-
-function doLogin(){
-    const p=document.getElementById('passInput').value;
-    if(p===ADMIN_PASS){
-        isAdmin=true;
-        closeModal('loginModal');
-        openAdmin();
-    }else{
-        document.getElementById('loginErr').style.display='block';
+    if (ورودی === رمز_مدیریت) {
+        دسترسی_مدیریت = true;
+        وضعیت.className = 'وضعیت موفق';
+        وضعیت.textContent = '✅ خوش اومدی فرمانروا! قلمرو در اختیار توست';
+        document.getElementById('بخش_ورود').classList.add('پنهان');
+        document.getElementById('بخش_مدیریت').classList.remove('پنهان');
+    } else {
+        وضعیت.className = 'وضعیت خطا';
+        وضعیت.textContent = '❌ کلید قلمرو نادرست است';
     }
 }
 
-function openAdmin(){
-    document.getElementById('setTitle').value=data.title;
-    document.getElementById('setSubtitle').value=data.subtitle;
-    
-    if(data.logo){
-        const p=document.getElementById('logoPreview');
-        p.src=data.logo;p.style.display='block';
+function خروج() {
+    دسترسی_مدیریت = false;
+    document.getElementById('بخش_مدیریت').classList.add('پنهان');
+    document.getElementById('بخش_ورود').classList.remove('پنهان');
+    document.getElementById('وضعیت_ورود').textContent = '';
+    document.getElementById('رمز').value = '';
+}
+
+// پیش‌نمایش عکس
+function پیش‌نمایش_عکس(ورودی) {
+    const فایل = ورودی.files[0];
+    if (!فایل) return;
+    const خواننده = new FileReader();
+    خواننده.onload = e => {
+        const تصویر = document.getElementById('پیش‌نمایش_عکس');
+        تصویر.src = e.target.result;
+        تصویر.style.display = 'block';
+    };
+    خواننده.readAsDataURL(فایل);
+}
+
+// انتخاب دسته
+function انتخاب_دسته(نام) {
+    دسته_فعال = نام;
+    document.querySelectorAll('.دسته').forEach(d => d.classList.remove('فعال'));
+    event.target.classList.add('فعال');
+    نمایش_پیامها();
+}
+
+// بارگذاری از دیتابیس
+async function بارگذاری_پیامها() {
+    try {
+        const { data, error } = await supabase
+            .from('پیامها')
+            .select('*')
+            .order('زمان', { ascending: false });
+        
+        if (error) throw error;
+        همه_پیامها = data || [];
+        نمایش_پیامها();
+    } catch (err) {
+        document.getElementById('لیست').innerHTML = 
+            `<p class="خالی">❌ خطا در اتصال به قلمرو<br>${err.message}</p>`;
     }
-    if(data.hero){
-        const p=document.getElementById('heroPreview');
-        p.src=data.hero;p.style.display='block';
-    }
+}
+
+// نمایش پیام‌ها
+function نمایش_پیامها() {
+    const لیست = document.getElementById('لیست');
+    const فیلتر = دسته_فعال === 'همه' 
+        ? همه_پیامها 
+        : همه_پیامها.filter(p => p.دسته === دسته_فعال);
     
-    const catList=document.getElementById('catList');
-    catList.innerHTML=data.categories.map((c,i)=>`
-        <div class="admin-item">
-            <span>${c.icon} ${c.display} (${data.messages.filter(m=>m.cat===c.name).length} آیتم)</span>
-            <button class="btn-submit btn-danger" onclick="deleteCat(${i})" style="width:auto;padding:6px 12px">🗑</button>
+    if (!فیلتر.length) {
+        لیست.innerHTML = '<p class="خالی">هنوز فرمانی صادر نشده است 👑</p>';
+        return;
+    }
+
+    لیست.innerHTML = فیلتر.map(p => `
+        <div class="آیتم">
+            <span class="آیتم_دسته">${p.دسته}</span>
+            <div style="margin-top:10px; line-height:1.8; white-space:pre-wrap;">${p.متن.replace(/</g,"&lt;")}</div>
+            ${p.عکس ? `<img src="${p.عکس}" class="آیتم_عکس" alt="کاور">` : ''}
+            ${p.لینک ? `<a href="${p.لینک}" target="_blank" class="آیتم_لینک">🔗 دریافت / مشاهده</a>` : ''}
+            <div class="آیتم_زمان">🕐 ${new Date(p.زمان).toLocaleString('fa-IR')}</div>
         </div>
     `).join('');
+}
+
+// ارسال پیام جدید
+async function ارسال_فرمان() {
+    if (!دسترسی_مدیریت) return;
     
-    const sel=document.getElementById('msgCat');
-    sel.innerHTML=data.categories.map(c=>`<option value="${c.name}">${c.icon} ${c.display}</option>`).join('');
+    const دسته = document.getElementById('انتخاب_دسته_فرم').value;
+    const متن = document.getElementById('متن_فرم').value.trim();
+    const لینک = document.getElementById('لینک_فرم').value.trim();
+    const عکس_المان = document.getElementById('پیش‌نمایش_عکس');
+    const وضعیت = document.getElementById('وضعیت_ارسال');
     
-    const allBox=document.getElementById('allMsgs');
-    if(!data.messages.length){
-        allBox.innerHTML='<p style="color:#d4af37;text-align:center">هنوز پیامی نیست</p>';
-    }else{
-        allBox.innerHTML=data.messages.map((m,i)=>{
-            const cat=data.categories.find(c=>c.name===m.cat);
-            return `<div class="admin-item">
-                <span>${cat?cat.icon:''} ${m.title}</span>
-                <button class="btn-submit btn-danger" onclick="deleteMsg(${i})" style="width:auto;padding:6px 12px">🗑</button>
-            </div>`;
-        }).join('');
+    if (!متن) {
+        وضعیت.className = 'وضعیت خطا';
+        وضعیت.textContent = '❌ متنی نوشته نشده!';
+        return;
     }
-    
-    document.getElementById('adminModal').classList.add('active');
-}
 
-function closeAdmin(){closeModal('adminModal');}
-function logoutAdmin(){isAdmin=false;closeAdmin();alert('خروج موفق');}
+    const عکس_داده = عکس_المان.style.display === 'block' ? عکس_المان.src : null;
 
-function saveTexts(){
-    data.title=document.getElementById('setTitle').value||'VORTEXPLAY';
-    data.subtitle=document.getElementById('setSubtitle').value||'ROYAL GAMING EMPIRE';
-    save();render();alert('✅ ذخیره شد');
-}
+    وضعیت.className = 'وضعیت';
+    وضعیت.textContent = 'در حال ثبت در قلمرو...';
 
-function uploadImg(type){
-    const fileInput={logo:'logoFile',hero:'heroFile',bg:'bgFile'}[type];
-    const file=document.getElementById(fileInput).files[0];
-    if(!file)return;
-    const reader=new FileReader();
-    reader.onload=e=>{
-        data[type]=e.target.result;
-        save();render();
-        if(type==='logo'){
-            const p=document.getElementById('logoPreview');
-            p.src=data.logo;p.style.display='block';
-        }
-        if(type==='hero'){
-            const p=document.getElementById('heroPreview');
-            p.src=data.hero;p.style.display='block';
-        }
-        alert('✅ آپلود شد');
-    };
-    reader.readAsDataURL(file);
-}
+    try {
+        const { error } = await supabase.from('پیامها').insert([{
+            دسته, متن, لینک, عکس: عکس_داده
+        }]);
 
-function resetImages(){
-    if(!confirm('مطمئنی همه تصاویر حذف بشن؟'))return;
-    data.logo='';data.hero='';data.bg='';
-    save();render();
-    document.body.style.backgroundImage='';
-    document.body.classList.remove('has-bg');
-    document.getElementById('logoPreview').style.display='none';
-    document.getElementById('heroPreview').style.display='none';
-    alert('🗑 حذف شد');
-}
+        if (error) throw error;
 
-function addCat(){
-    const name=document.getElementById('newCat').value.trim();
-    const icon=document.getElementById('newCatIcon').value.trim()||'📁';
-    if(!name){alert('نام را وارد کن');return;}
-    const safe=name.toLowerCase().replace(/[^a-z0-9]/g,'_');
-    if(data.categories.find(c=>c.name===safe)){alert('این نام تکراری است');return;}
-    data.categories.push({name:safe,display:name,icon:icon});
-    save();render();openAdmin();
-    document.getElementById('newCat').value='';
-    document.getElementById('newCatIcon').value='';
-}
+        // پاک کردن فرم
+        document.getElementById('متن_فرم').value = '';
+        document.getElementById('لینک_فرم').value = '';
+        document.getElementById('عکس_ورودی').value = '';
+        عکس_المان.style.display = 'none';
 
-function deleteCat(i){
-    if(!confirm(`حذف "${data.categories[i].display}" و همه پیام‌هایش؟`))return;
-    const catName=data.categories[i].name;
-    data.categories.splice(i,1);
-    data.messages=data.messages.filter(m=>m.cat!==catName);
-    save();render();openAdmin();
-}
-
-function addMessage(){
-    const cat=document.getElementById('msgCat').value;
-    const title=document.getElementById('msgTitle').value.trim();
-    const desc=document.getElementById('msgDesc').value.trim();
-    const link=document.getElementById('msgLink').value.trim();
-    const coverFile=document.getElementById('msgCover').files[0];
-    
-    if(!title){alert('عنوان را وارد کن');return;}
-    
-    const add=(cover)=>{
-        data.messages.push({cat,title,desc,link,cover,date:Date.now()});
-        save();render();openAdmin();
-        document.getElementById('msgTitle').value='';
-        document.getElementById('msgDesc').value='';
-        document.getElementById('msgLink').value='';
-        document.getElementById('msgCover').value='';
-        alert('✅ اضافه شد');
-    };
-    
-    if(coverFile){
-        const r=new FileReader();
-        r.onload=e=>add(e.target.result);
-        r.readAsDataURL(coverFile);
-    }else{
-        add('');
+        وضعیت.className = 'وضعیت موفق';
+        وضعیت.textContent = '✅ فرمان با موفقیت صادر شد!';
+        
+        await بارگذاری_پیامها();
+        setTimeout(() => وضعیت.textContent = '', 3000);
+    } catch (err) {
+        وضعیت.className = 'وضعیت خطا';
+        وضعیت.textContent = `❌ خطا: ${err.message}`;
     }
 }
 
-function deleteMsg(i){
-    if(!confirm('حذف این پیام؟'))return;
-    data.messages.splice(i,1);
-    save();render();openAdmin();
-}
-
-document.addEventListener('click',e=>{
-    if(e.target.closest('input,button,select,textarea,.admin-btn'))return;
-    const r=document.createElement('div');
-    r.className='fx';
-    r.style.left=e.clientX+'px';
-    r.style.top=e.clientY+'px';
-    document.body.appendChild(r);
-    setTimeout(()=>r.remove(),600);
-});
-
-render();
+// شروع
+بارگذاری_پیامها();
+// هر ۲۰ ثانیه بروزرسانی خودکار
+setInterval(بارگذاری_پیامها, 20000);
 </script>
 </body>
 </html>
