@@ -3,384 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VORTEXPLAY | CYBERPUNK</title>
+    <title>VORTEXPLAY 🎮</title>
     <style>
-        /* ⚙ رنگ‌های سایبرپانکی */
         :root {
             --نئون‌آبی: #00f0ff;
             --نئون‌صورتی: #ff2d95;
-            --نئون‌بنفش: #8b00ff;
-            --نئون‌سبز: #00ff9d;
             --تیره: #050510;
             --کارت: rgba(17,17,37,0.7);
-            --متن: #e0e0ff;
-            --درخشش‌آبی: 0 0 8px #00f0ff, 0 0 20px rgba(0,240,255,0.3);
-            --درخشش‌صورتی: 0 0 8px #ff2d95, 0 0 20px rgba(255,45,149,0.3);
-            --درخشش‌سبز: 0 0 8px #00ff9d, 0 0 20px rgba(0,255,157,0.3);
         }
-
-        * {margin:0; padding:0; box-sizing:border-box; font-family:'Courier New', monospace;}
+        * {margin:0; padding:0; box-sizing:border-box; font-family:tahoma, sans-serif;}
         body {
             background: var(--تیره);
-            color: var(--متن);
+            color: #e0e0ff;
             min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
+            padding: 20px;
         }
-
-        /* 📡 خطوط اسکن پس‌زمینه */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: repeating-linear-gradient(
-                transparent, transparent 2px, rgba(0,240,255,0.02) 2px, rgba(0,240,255,0.02) 4px
-            );
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* 🖼️ پس‌زمینه عکس */
-        .پس‌زمینه_عکس {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: url('https://i.imgur.com/7Zk3Q9A.jpg') center/cover no-repeat;
-            opacity: 0.1;
-            z-index: 0;
-            transition: background 0.5s;
-        }
-
-        .کانتینر {max-width: 520px; margin: 0 auto; padding: 20px; position: relative; z-index: 2;}
-
-        /* 🏷️ لوگو و سرتیتر */
-        .سرتیتر {text-align: center; padding: 30px 0;}
-        .لوگو_باکس {margin-bottom: 10px;}
-        .لوگو_عکس {
-            max-width: 180px;
-            max-height: 80px;
-            object-fit: contain;
-            margin-bottom: 8px;
-        }
-        .لوگو_متن {
-            font-size: 32px;
-            font-weight: bold;
-            letter-spacing: 4px;
+        .کانتینر {max-width: 500px; margin: 0 auto;}
+        .سرتیتر {text-align: center; padding: 25px 0;}
+        h1 {
+            font-size: 28px;
             background: linear-gradient(90deg, var(--نئون‌آبی), var(--نئون‌صورتی));
             -webkit-background-clip: text;
             color: transparent;
-            animation: تپش 2.5s infinite alternate;
         }
-        @keyframes تپش {
-            from {filter: drop-shadow(0 0 5px var(--نئون‌آبی));}
-            to {filter: drop-shadow(0 0 15px var(--نئون‌صورتی));}
-        }
-        .زیرنویس {color: #555; margin-top: 8px; font-size: 12px; letter-spacing: 3px;}
-
-        /* 📦 کارت‌ها */
         .باکس {
             background: var(--کارت);
-            border: 1px solid rgba(0,240,255,0.25);
-            border-radius: 4px;
-            padding: 22px;
-            margin-top: 18px;
-            backdrop-filter: blur(8px);
-            position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
-            transition: all 0.3s;
+            border: 1px solid rgba(0,240,255,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
         }
-        .باکس:hover {
-            border-color: var(--نئون‌آبی);
-            box-shadow: var(--درخشش‌آبی);
-        }
-
-        h3 {
-            color: var(--نئون‌آبی);
-            margin-bottom: 12px;
-            font-size: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* 📂 دسته‌بندی‌ها */
-        .دسته‌ها {display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px;}
-        .دسته {
-            padding: 8px 14px;
-            border: 1px solid rgba(255,45,149,0.35);
-            border-radius: 2px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: .2s;
-            background: transparent;
-            color: var(--نئون‌صورتی);
-        }
-        .دسته.فعال {
-            background: rgba(255,45,149,0.15);
-            border-color: var(--نئون‌صورتی);
-            box-shadow: var(--درخشش‌صورتی);
-        }
-        .دسته:hover {transform: translateY(-2px);}
-
-        /* ⌨ ورودی‌ها */
-        textarea, input, select {
+        h3 {color: var(--نئون‌آبی); margin-bottom: 12px; font-size: 15px;}
+        input, textarea, select {
             width: 100%;
             background: rgba(0,0,0,0.5);
-            border: 1px solid rgba(0,240,255,0.25);
+            border: 1px solid rgba(0,240,255,0.3);
             padding: 12px;
-            color: var(--متن);
+            color: white;
+            margin-top: 8px;
+            border-radius: 8px;
             font-size: 14px;
-            margin-top: 10px;
-            outline: none;
-            font-family: inherit;
-            border-radius: 2px;
         }
-        textarea:focus, input:focus, select:focus {
-            border-color: var(--نئون‌آبی);
-            box-shadow: var(--درخشش‌آبی);
-        }
-
-        /* 🔘 دکمه‌ها */
         button {
             width: 100%;
             padding: 12px;
-            margin-top: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
             border: none;
-            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            transition: .2s;
-            font-family: inherit;
-            border-radius: 2px;
+            font-size: 15px;
         }
         .دکمه‌اصلی {
-            background: linear-gradient(90deg, var(--نئون‌آبی), var(--نئون‌بنفش));
+            background: linear-gradient(90deg, var(--نئون‌آبی), #0099ff);
             color: #000;
         }
-        .دکمه‌اصلی:hover {transform: scale(1.02); filter: brightness(1.2);}
         .دکمه‌فرعی {
             background: transparent;
             border: 1px solid var(--نئون‌صورتی);
             color: var(--نئون‌صورتی);
         }
-        .دکمه‌فرعی:hover {
-            background: rgba(255,45,149,0.15);
-            box-shadow: var(--درخشش‌صورتی);
+        .پیش‌نمایش_عکس {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 10px;
+            border-radius: 8px;
+            display: none;
         }
-        .دکمه‌کوچیک {
-            width: auto;
-            padding: 6px 12px;
-            font-size: 12px;
-            margin: 4px;
-            display: inline-block;
-        }
-
-        /* 📋 آیتم‌ها */
         .آیتم {
             background: rgba(0,0,0,0.4);
-            border-right: 2px solid var(--نئون‌صورتی);
-            padding: 14px;
+            border-right: 3px solid var(--نئون‌صورتی);
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 6px;
+        }
+        .آیتم_عکس {
+            max-width: 100%;
+            border-radius: 6px;
             margin-top: 10px;
-            border-radius: 2px;
         }
-        .آیتم_متن {word-break: break-all; line-height: 1.7;}
-        .آیتم_لینک {
-            color: var(--نئون‌آبی);
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 8px;
-        }
-        .آیتم_لینک:hover {text-decoration: underline;}
         .آیتم_دسته {
             display: inline-block;
             font-size: 11px;
             background: rgba(255,45,149,0.2);
             padding: 2px 8px;
-            border-radius: 2px;
+            border-radius: 4px;
             margin-left: 6px;
         }
-        .آیتم_زمان {font-size: 11px; color: #444; margin-top: 6px;}
-
-        .خالی {text-align: center; color: #444; padding: 30px; font-size: 14px;}
+        .آیتم_زمان {font-size: 11px; color: #555; margin-top: 8px;}
+        .خالی {text-align: center; color: #555; padding: 30px;}
         .وضعیت {margin-top: 10px; font-size: 13px;}
-        .موفق {color: var(--نئون‌سبز);}
+        .موفق {color: #00ff9d;}
         .خطا {color: #ff4466;}
         .پنهان {display: none !important;}
-        .تب‌ها {display: flex; gap: 8px; margin-bottom: 15px;}
-        .تب {
-            padding: 8px 16px;
-            border-bottom: 2px solid transparent;
-            cursor: pointer;
+        .دسته‌ها {display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px;}
+        .دسته {
+            padding: 8px 14px;
+            border: 1px solid rgba(255,45,149,0.4);
+            border-radius: 6px;
             font-size: 13px;
-            color: #777;
+            cursor: pointer;
+            color: var(--نئون‌صورتی);
         }
-        .تب.فعال {
-            border-bottom-color: var(--نئون‌آبی);
-            color: var(--نئون‌آبی);
+        .دسته.فعال {
+            background: rgba(255,45,149,0.15);
+            border-color: var(--نئون‌صورتی);
         }
     </style>
 </head>
 <body>
-    <div class="پس‌زمینه_عکس" id="پس‌زمینه_اصلی"></div>
     <div class="کانتینر">
-        <!-- 🏷️ لوگو و سرتیتر -->
         <div class="سرتیتر">
-            <div class="لوگو_باکس">
-                <img id="لوگو_تصویر" class="لوگو_عکس پنهان" alt="لوگو">
-                <div class="لوگو_متن" id="متن_لوگو">VORTEXPLAY</div>
-            </div>
-            <p class="زیرنویس">SYSTEM ONLINE // NEURAL LINK ACTIVE</p>
+            <h1>🎮 VORTEXPLAY</h1>
+            <p style="color:#666; margin-top:8px;">آپلود از گالری + پنل مدیریت</p>
         </div>
 
-        <!-- 🔄 تب‌های اصلی -->
-        <div class="تب‌ها">
-            <span class="تب فعال" onclick="تغییر_تب('خانه')">خانه</span>
-            <span class="تب" onclick="تغییر_تب('مدیریت')">مدیریت</span>
-            <span class="تب" onclick="تغییر_تب('ظاهر')">تنظیمات ظاهر</span>
+        <!-- 🔐 ورود به مدیریت -->
+        <div class="باکس" id="بخش_ورود">
+            <h3>🔐 پنل مدیریت</h3>
+            <input type="password" id="رمز_مدیریت" placeholder="رمز ۳۲ رقمی را وارد کن">
+            <button class="دکمه‌فرعی" onclick="بررسی_رمز()">ورود</button>
+            <p id="وضعیت_ورود" class="وضعیت"></p>
         </div>
 
-        <!-- 📄 صفحه خانه -->
-        <div id="صفحه_خانه">
-            <!-- 📂 دسته‌بندی‌ها -->
-            <div class="باکس">
-                <h3>📂 دسته‌بندی‌ها</h3>
-                <div class="دسته‌ها">
-                    <span class="دسته فعال" onclick="انتخاب_دسته('همه')">همه</span>
-                    <span class="دسته" onclick="انتخاب_دسته('بازی')">بازی</span>
-                    <span class="دسته" onclick="انتخاب_دسته('نرم‌افزار')">نرم‌افزار</span>
-                    <span class="دسته" onclick="انتخاب_دسته('آموزش')">آموزش</span>
-                    <span class="دسته" onclick="انتخاب_دسته('متفرقه')">متفرقه</span>
-                </div>
-            </div>
+        <!-- ✍️ ارسال پیام و عکس (فقط مدیر) -->
+        <div class="باکس پنهان" id="بخش_ارسال">
+            <h3>✍️ ارسال مطلب جدید</h3>
+            <select id="انتخاب_دسته">
+                <option value="بازی">بازی</option>
+                <option value="نرم‌افزار">نرم‌افزار</option>
+                <option value="آموزش">آموزش</option>
+                <option value="متفرقه">متفرقه</option>
+            </select>
+            <textarea id="متن_پیام" rows="3" placeholder="متن توضیحات یا لینک دانلود..."></textarea>
+            
+            <label style="margin-top:12px; display:block; color:#aaa;">📸 انتخاب عکس از گالری:</label>
+            <input type="file" id="عکس_ورودی" accept="image/*" onchange="پیش_نمایش_عکس(this)">
+            <img id="پیش_نمایش" class="پیش‌نمایش_عکس" alt="پیش‌نمایش">
+            
+            <input type="text" id="لینک_دانلود" placeholder="لینک دانلود (اختیاری)">
+            <button class="دکمه‌اصلی" onclick="ارسال_مطلب()">📤 ارسال</button>
+            <p id="وضعیت_ارسال" class="وضعیت"></p>
+            <button class="دکمه‌فرعی" style="margin-top:15px;" onclick="خروج_مدیریت()">خروج</button>
+        </div>
 
-            <!-- ✍️ ارسال مطلب -->
-            <div class="باکس" id="بخش_ارسال">
-                <h3>✍️ ارسال لینک / فایل</h3>
-                <select id="انتخاب_دسته_ارسال">
-                    <option value="بازی">بازی</option>
-                    <option value="نرم‌افزار">نرم‌افزار</option>
-                    <option value="آموزش">آموزش</option>
-                    <option value="متفرقه">متفرقه</option>
-                </select>
-                <textarea id="متن_ارسال" rows="3" placeholder="نام فایل، توضیحات یا لینک دانلود را بنویس..."></textarea>
-                <input type="text" id="لینک_دانلود" placeholder="لینک دانلود (اختیاری)">
-                <button class="دکمه‌اصلی" onclick="ارسال()">📤 ارسال</button>
-                <p id="وضعیت_ارسال" class="وضعیت"></p>
-            </div>
-
-            <!-- 📋 لیست مطالب -->
-            <div class="باکس">
-                <h3>📋 بانک فایل‌ها</h3>
-                <div id="لیست_مطالب">
-                    <p class="خالی">در حال بارگذاری...</p>
-                </div>
+        <!-- 📂 دسته‌بندی‌ها -->
+        <div class="باکس">
+            <h3>📂 فیلتر بر اساس دسته</h3>
+            <div class="دسته‌ها">
+                <span class="دسته فعال" onclick="انتخاب_دسته('همه')">همه</span>
+                <span class="دسته" onclick="انتخاب_دسته('بازی')">بازی</span>
+                <span class="دسته" onclick="انتخاب_دسته('نرم‌افزار')">نرم‌افزار</span>
+                <span class="دسته" onclick="انتخاب_دسته('آموزش')">آموزش</span>
+                <span class="دسته" onclick="انتخاب_دسته('متفرقه')">متفرقه</span>
             </div>
         </div>
 
-        <!-- 🔐 صفحه مدیریت -->
-        <div id="صفحه_مدیریت" class="پنهان">
-            <div class="باکس">
-                <h3>🔐 پنل مدیریت</h3>
-                <input type="password" id="رمز_مدیریت" placeholder="رمز ۳۲ رقمی را وارد کن">
-                <button class="دکمه‌فرعی" onclick="ورود_مدیریت()">ورود به پنل</button>
-                <p id="وضعیت_مدیریت" class="وضعیت"></p>
-                
-                <div id="پنل_مدیریت_کامل" class="پنهان" style="margin-top: 15px;">
-                    <h3 style="font-size: 14px; margin-bottom: 10px;">عملیات</h3>
-                    <button class="دکمه‌فرعی" onclick="تغییر_رمز()">🔑 تغییر رمز مدیریت</button>
-                    <button class="دکمه‌فرعی" onclick="پاک_همه_مطالب()">🗑️ حذف همه مطالب</button>
-                    <button class="دکمه‌فرعی" onclick="خروج_مدیریت()">🚪 خروج از پنل</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 🎨 صفحه تنظیمات ظاهر -->
-        <div id="صفحه_ظاهر" class="پنهان">
-            <div class="باکس">
-                <h3>🎨 تنظیمات ظاهر سایت</h3>
-                
-                <label style="font-size:13px; color:#aaa;">لینک لوگو (عکس):</label>
-                <input type="text" id="لینک_لوگو" placeholder="مثال: https://i.imgur.com/xxxx.jpg">
-                <button class="دکمه‌فرعی دکمه‌کوچیک" onclick="اعمال_لوگو()">اعمال لوگو</button>
-                
-                <label style="font-size:13px; color:#aaa; margin-top:15px; display:block;">متن لوگو (اگر عکس نداری):</label>
-                <input type="text" id="متن_لوگو_ورودی" placeholder="مثال: VORTEXPLAY" maxlength="20">
-                <button class="دکمه‌فرعی دکمه‌کوچیک" onclick="اعمال_متن_لوگو()">اعمال متن</button>
-                
-                <label style="font-size:13px; color:#aaa; margin-top:15px; display:block;">لینک پس‌زمینه:</label>
-                <input type="text" id="لینک_پس‌زمینه" placeholder="لینک عکس پس‌زمینه">
-                <button class="دکمه‌فرعی دکمه‌کوچیک" onclick="اعمال_پس‌زمینه()">اعمال پس‌زمینه</button>
-                
-                <label style="font-size:13px; color:#aaa; margin-top:15px; display:block;">رنگ اصلی (نئون):</label>
-                <input type="text" id="رنگ_اصلی" placeholder="#00f0ff" style="max-width: 150px; display:inline-block;">
-                <button class="دکمه‌فرعی دکمه‌کوچیک" onclick="اعمال_رنگ()">اعمال رنگ</button>
-                
-                <button class="دکمه‌اصلی" style="margin-top: 20px;" onclick="بازنشانی_ظاهر()">↩️ بازنشانی به حالت اولیه</button>
+        <!-- 📋 لیست مطالب -->
+        <div class="باکس">
+            <h3>📋 مطالب و فایل‌ها</h3>
+            <div id="لیست_مطالب">
+                <p class="خالی">در حال بارگذاری...</p>
             </div>
         </div>
     </div>
 
 <script>
-// ⚙ تنظیمات اولیه
-let رمز_اصلی = "VP26-9K7X-QR4M-2P8Z-L5DN-3F9G-7H2J-6K4L"; // رمز ۳۲ رقمی پیش‌فرض
+// ⚙ تنظیمات — از jsonbin.io بگیر
+const API_KEY = "اینجا-کلید-API-رو-بذار";
+const BIN_ID = "اینجا-BIN_ID-رو-بذار";
+const رمز_مدیریت = "VP26-9K7X-QR4M-2P8Z-L5DN-3F9G-7H2J-6K4L"; // رمز ۳۲ رقمی
+
+let دسترسی_مدیریت = false;
 let دسته_فعال = "همه";
 let مطالب = [];
-let دسترسی_مدیریت = false;
 
-// 📦 بارگذاری داده‌ها
-function بارگذاری() {
-    const داده_ذخیره = localStorage.getItem("vp26_data");
-    if (داده_ذخیره) مطالب = JSON.parse(داده_ذخیره);
+// 🔐 بررسی رمز
+function بررسی_رمز() {
+    const ورودی = document.getElementById("رمز_مدیریت").value;
+    const وضعیت = document.getElementById("وضعیت_ورود");
     
-    const تنظیمات_ظاهر = localStorage.getItem("vp26_style");
-    if (تنظیمات_ظاهر) بارگذاری_ظاهر(JSON.parse(تنظیمات_ظاهر));
-    
-    نمایش_مطالب();
+    if (ورودی === رمز_مدیریت) {
+        دسترسی_مدیریت = true;
+        وضعیت.className = "وضعیت موفق";
+        وضعیت.textContent = "✅ وارد شدی — میتونی مطلب بفرستی";
+        document.getElementById("بخش_ارسال").classList.remove("پنهان");
+        document.getElementById("بخش_ورود").classList.add("پنهان");
+    } else {
+        وضعیت.className = "وضعیت خطا";
+        وضعیت.textContent = "❌ رمز نادرست";
+    }
 }
 
-function ذخیره_داده() {
-    localStorage.setItem("vp26_data", JSON.stringify(مطالب));
+function خروج_مدیریت() {
+    دسترسی_مدیریت = false;
+    document.getElementById("بخش_ارسال").classList.add("پنهان");
+    document.getElementById("بخش_ورود").classList.remove("پنهان");
+    document.getElementById("وضعیت_ورود").textContent = "";
+    document.getElementById("رمز_مدیریت").value = "";
 }
 
-function ذخیره_ظاهر() {
-    const تنظیمات = {
-        لینک_لوگو: document.getElementById("لینک_لوگو").value,
-        متن_لوگو: document.getElementById("متن_لوگو_ورودی").value,
-        لینک_پس‌زمینه: document.getElementById("لینک_پس‌زمینه").value,
-        رنگ_اصلی: document.getElementById("رنگ_اصلی").value
+// 📸 پیش‌نمایش عکس
+function پیش_نمایش_عکس(ورودی) {
+    const فایل = ورودی.files[0];
+    if (!فایل) return;
+    
+    const خواننده = new FileReader();
+    خواننده.onload = function(e) {
+        const تصویر = document.getElementById("پیش_نمایش");
+        تصویر.src = e.target.result;
+        تصویر.style.display = "block";
     };
-    localStorage.setItem("vp26_style", JSON.stringify(تنظیمات));
+    خواننده.readAsDataURL(فایل);
 }
 
-function بارگذاری_ظاهر(تنظیمات) {
-    if (تنظیمات.لینک_لوگو) {
-        document.getElementById("لینک_لوگو").value = تنظیمات.لینک_لوگو;
-        اعمال_لوگو();
-    }
-    if (تنظیمات.متن_لوگو) {
-        document.getElementById("متن_لوگو_ورودی").value = تنظیمات.متن_لوگو;
-        document.getElementById("متن_لوگو").textContent = تنظیمات.متن_لوگو;
-    }
-    if (تنظیمات.لینک_پس‌زمینه) {
-        document.getElementById("لینک_پس‌زمینه").value = تنظیمات.لینک_پس‌زمینه;
-        اعمال_پس‌زمینه();
-    }
-    if (تنظیمات.رنگ_اصلی) {
-        document.getElementById("رنگ_اصلی").value = تنظیمات.رنگ_اصلی;
-        اعمال_رنگ();
-    }
-}
-
-// 🔄 تغییر تب‌ها
-function تغییر_تب(نام) {
-    document.querySelectorAll(".تب").forEach(t => t.classList.remove("فعال"));
-    event.target.classList.add("فعال");
+// 📤 ارسال مطلب
+async function ارسال_مطلب() {
+    if (!دسترسی_مدیریت) return;
     
-    document.getElementById("صفحه_خانه").classList.add("پنهان");
-    document.getElementById("صفحه_مدیریت").classList.add("پنهان");
-    document.getElementById("صفحه_ظاهر").classList.add("پنهان");
-    document.getElementById(`صفحه_${نام}`).classList.remove("پنهان");
+    const دسته = document.getElementById("انتخاب_دسته").value;
+    const متن = document.getElementById("متن_پیام").value.trim();
+    const لینک = document.getElementById("لینک_دانلود").value.trim();
+    const عکس_المان = document.getElementById("پیش_نمایش");
+    const وضعیت = document.getElementById("وضعیت_ارسال");
+    
+    if (!متن) {
+        وضعیت.className = "وضعیت خطا";
+        وضعیت.textContent = "❌ متن خالی است!";
+        return;
+    }
+
+    const عکس_داده = عکس_المان.style.display === "block" ? عکس_المان.src : null;
+
+    وضعیت.className = "وضعیت";
+    وضعیت.textContent = "در حال ارسال...";
+
+    try {
+        // دریافت مطالب قبلی
+        const پاسخ = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+            headers: { "X-Master-Key": API_KEY }
+        });
+        const داده = await پاسخ.json();
+        مطالب = داده.record?.مطالب || [];
+
+        // اضافه کردن جدید
+        مطالب.unshift({
+            دسته, متن, لینک,
+            عکس: عکس_داده,
+            زمان: Date.now()
+        });
+
+        // ذخیره
+        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Master-Key": API_KEY
+            },
+            body: JSON.stringify({ مطالب })
+        });
+
+        // پاک کردن فرم
+        document.getElementById("متن_پیام").value = "";
+        document.getElementById("لینک_دانلود").value = "";
+        document.getElementById("عکس_ورودی").value = "";
+        document.getElementById("پیش_نمایش").style.display = "none";
+
+        وضعیت.className = "وضعیت موفق";
+        وضعیت.textContent = "✅ مطلب فرستاده شد! همه می‌بینند";
+        بارگذاری_مطالب();
+        setTimeout(() => وضعیت.textContent = "", 3000);
+    } catch (خطا) {
+        وضعیت.className = "وضعیت خطا";
+        وضعیت.textContent = "❌ خطا در ارسال";
+        console.error(خطا);
+    }
 }
 
 // 📂 انتخاب دسته
@@ -391,155 +288,45 @@ function انتخاب_دسته(نام) {
     نمایش_مطالب();
 }
 
+// 📥 بارگذاری مطالب
+async function بارگذاری_مطالب() {
+    try {
+        const پاسخ = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+            headers: { "X-Master-Key": API_KEY }
+        });
+        const داده = await پاسخ.json();
+        مطالب = داده.record?.مطالب || [];
+        نمایش_مطالب();
+    } catch (خطا) {
+        document.getElementById("لیست_مطالب").innerHTML = 
+            `<p class="خالی">❌ خطا در اتصال</p>`;
+    }
+}
+
+// 📋 نمایش مطالب
 function نمایش_مطالب() {
     const لیست = document.getElementById("لیست_مطالب");
     const فیلتر = دسته_فعال === "همه" ? مطالب : مطالب.filter(m => m.دسته === دسته_فعال);
     
     if (!فیلتر.length) {
-        لیست.innerHTML = '<p class="خالی">هنوز مطلبی در این دسته وجود ندارد</p>';
+        لیست.innerHTML = '<p class="خالی">هنوز مطلبی وجود ندارد</p>';
         return;
     }
 
-    لیست.innerHTML = فیلتر.map((m, i) => `
+    لیست.innerHTML = فیلتر.map(m => `
         <div class="آیتم">
             <span class="آیتم_دسته">${m.دسته}</span>
-            <div class="آیتم_متن">${m.متن.replace(/</g,"&lt;")}</div>
-            ${m.لینک ? `<a href="${m.لینک}" target="_blank" class="آیتم_لینک">🔗 دانلود / مشاهده</a>` : ""}
-            <div class="آیتم_زمان">${new Date(m.زمان).toLocaleString("fa-IR")}</div>
-            ${دسترسی_مدیریت ? `<button class="دکمه‌فرعی دکمه‌کوچیک" onclick="حذف_مطلب(${i})">حذف</button>` : ""}
+            <div style="margin-top:8px; line-height:1.7;">${m.متن.replace(/</g,"&lt;")}</div>
+            ${m.عکس ? `<img src="${m.عکس}" class="آیتم_عکس" alt="عکس">` : ""}
+            ${m.لینک ? `<a href="${m.لینک}" target="_blank" style="color:#00f0ff; display:inline-block; margin-top:10px;">🔗 دانلود / مشاهده</a>` : ""}
+            <div class="آیتم_زمان">🕐 ${new Date(m.زمان).toLocaleString("fa-IR")}</div>
         </div>
     `).join("");
 }
 
-// ✍️ ارسال مطلب
-function ارسال() {
-    const دسته = document.getElementById("انتخاب_دسته_ارسال").value;
-    const متن = document.getElementById("متن_ارسال").value.trim();
-    const لینک = document.getElementById("لینک_دانلود").value.trim();
-    const وضعیت = document.getElementById("وضعیت_ارسال");
-
-    if (!متن) {
-        وضعیت.className = "وضعیت خطا";
-        وضعیت.textContent = "❌ متن خالی است!";
-        return;
-    }
-
-    مطالب.unshift({ دسته, متن, لینک, زمان: Date.now() });
-    ذخیره_داده();
-    نمایش_مطالب();
-
-    document.getElementById("متن_ارسال").value = "";
-    document.getElementById("لینک_دانلود").value = "";
-
-    وضعیت.className = "وضعیت موفق";
-    وضعیت.textContent = "✅ با موفقیت ارسال شد!";
-    setTimeout(() => وضعیت.textContent = "", 2500);
-}
-
-// 🔐 مدیریت
-function ورود_مدیریت() {
-    const ورودی = document.getElementById("رمز_مدیریت").value;
-    const وضعیت = document.getElementById("وضعیت_مدیریت");
-
-    if (ورودی === رمز_اصلی) {
-        دسترسی_مدیریت = true;
-        وضعیت.className = "وضعیت موفق";
-        وضعیت.textContent = "✅ دسترسی تایید شد — خوش اومدی";
-        document.getElementById("پنل_مدیریت_کامل").classList.remove("پنهان");
-        نمایش_مطالب();
-    } else {
-        وضعیت.className = "وضعیت خطا";
-        وضعیت.textContent = "❌ رمز نادرست";
-    }
-}
-
-function خروج_مدیریت() {
-    دسترسی_مدیریت = false;
-    document.getElementById("رمز_مدیریت").value = "";
-    document.getElementById("وضعیت_مدیریت").textContent = "";
-    document.getElementById("پنل_مدیریت_کامل").classList.add("پنهان");
-    نمایش_مطالب();
-}
-
-function حذف_مطلب(شاخص) {
-    if (confirm("مطمئنی این مطلب حذف بشه؟")) {
-        مطالب.splice(شاخص, 1);
-        ذخیره_داده();
-        نمایش_مطالب();
-    }
-}
-
-function پاک_همه_مطالب() {
-    if (confirm("⚠️ همه مطالب حذف بشوند؟ بازگشت ندارد!")) {
-        مطالب = [];
-        ذخیره_داده();
-        نمایش_مطالب();
-    }
-}
-
-function تغییر_رمز() {
-    const رمز_جدید = prompt("رمز جدید ۳۲ رقمی را وارد کن:\n(حداقل ۱۶ کاراکتر)");
-    if (!رمز_جدید) return;
-    if (رمز_جدید.length < 16) {
-        alert("❌ رمز کوتاه است! حداقل ۱۶ کاراکتر");
-        return;
-    }
-    رمز_اصلی = رمز_جدید;
-    alert("✅ رمز با موفقیت تغییر یافت!");
-}
-
-// 🎨 تنظیمات ظاهر
-function اعمال_لوگو() {
-    const لینک = document.getElementById("لینک_لوگو").value.trim();
-    const تصویر = document.getElementById("لوگو_تصویر");
-    const متن = document.getElementById("متن_لوگو");
-    
-    if (لینک) {
-        تصویر.src = لینک;
-        تصویر.classList.remove("پنهان");
-        متن.classList.add("پنهان");
-    } else {
-        تصویر.classList.add("پنهان");
-        متن.classList.remove("پنهان");
-    }
-    ذخیره_ظاهر();
-}
-
-function اعمال_متن_لوگو() {
-    const متن = document.getElementById("متن_لوگو_ورودی").value.trim();
-    if (متن) {
-        document.getElementById("متن_لوگو").textContent = متن;
-        document.getElementById("لوگو_تصویر").classList.add("پنهان");
-        document.getElementById("متن_لوگو").classList.remove("پنهان");
-    }
-    ذخیره_ظاهر();
-}
-
-function اعمال_پس‌زمینه() {
-    const لینک = document.getElementById("لینک_پس‌زمینه").value.trim();
-    const پسزمینه = document.getElementById("پس‌زمینه_اصلی");
-    if (لینک) پسزمینه.style.background = `url('${لینک}') center/cover no-repeat`;
-    else پسزمینه.style.background = "";
-    ذخیره_ظاهر();
-}
-
-function اعمال_رنگ() {
-    const رنگ = document.getElementById("رنگ_اصلی").value.trim();
-    if (رنگ) {
-        document.documentElement.style.setProperty("--نئون‌آبی", رنگ);
-    }
-    ذخیره_ظاهر();
-}
-
-function بازنشانی_ظاهر() {
-    if (confirm("مطمئنی ظاهر سایت به حالت اولیه برگرده؟")) {
-        localStorage.removeItem("vp26_style");
-        location.reload();
-    }
-}
-
-// 🚀 شروع برنامه
-بارگذاری();
+// 🔄 هر ۱۵ ثانیه بروزرسانی
+بارگذاری_مطالب();
+setInterval(بارگذاری_مطالب, 15000);
 </script>
 </body>
 </html>
