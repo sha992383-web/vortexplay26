@@ -1,428 +1,340 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html dir="rtl" lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VORTEXPLAY 👑 ROYAL</title>
+    <title>VORTEXPLAY 👑</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --طلایی: #ffd700;
-            --طلایی‌تیره: #b8860b;
-            --بنفش: #2d1b4e;
-            --بنفش‌عمیق: #0d0618;
-            --کرم: #f5e6a3;
-            --سایه: 0 0 20px rgba(255,215,0,0.4), 0 0 40px rgba(184,134,11,0.2);
+            --طلایی: #FFD700;
+            --بنفش: #9932CC;
+            --تیره: #050510;
+            --کارت: #12122A;
+            --سفید: #FFFFFF;
+            --خاکستری: #AAAAAA;
         }
-        * {margin:0; padding:0; box-sizing:border-box;}
+        * {margin:0; padding:0; box-sizing:border-box; font-family:system-ui, sans-serif;}
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background: var(--بنفش‌عمیق);
-            color: var(--کرم);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
+            background:var(--تیره);
+            color:var(--سفید);
+            min-height:100vh;
+            background:radial-gradient(circle at top, #1A1A3A 0%, #050510 70%);
         }
-        /* ذرات طلایی */
-        .ذره {
-            position: fixed;
-            width: 3px; height: 3px;
-            background: var(--طلایی);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: شناور 8s infinite ease-in-out;
-            opacity: 0.6;
+        .سربرگ {
+            padding:1.2rem 1.5rem;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            border-bottom:2px solid var(--طلایی);
         }
-        @keyframes شناور {
-            0% {transform: translateY(100vh); opacity: 0;}
-            10% {transform: translateY(-10px); opacity: 1;}
+        .لوگو {font-size:1.8rem; font-weight:bold; color:var(--طلایی);}
+        .دکمه-مدیریت {
+            background:var(--بنفش);
+            padding:0.7rem 1.2rem;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:bold;
+            border:none;
+            color:white;
         }
-        .کانتینر {max-width: 520px; margin: 0 auto; padding: 25px 20px 80px; position: relative; z-index: 10;}
-        /* سرتیتر */
-        .سرتیتر {text-align: center; padding: 30px 0; position: relative;}
-        .تاج {font-size: 40px; animation: تاج‌شناور 3s infinite ease-in-out;}
-        @keyframes تاج‌شناور {
-            0%,100% {transform: translateY(0);}
-            50% {transform: translateY(-8px);}
+        .نوار {
+            display:flex; gap:0.5rem; padding:1rem; justify-content:center; flex-wrap:wrap;
         }
-        .حلقه {
-            width: 160px; height: 160px;
-            margin: 0 auto -80px;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, var(--طلایی), var(--طلایی‌تیره), #8b6914, var(--طلایی));
-            animation: چرخش 8s linear infinite;
-            opacity: 0.25;
-            filter: blur(1px);
+        .تب {
+            padding:0.7rem 1.2rem; border-radius:8px; cursor:pointer; border:2px solid transparent;
         }
-        @keyframes چرخش {to {transform: rotate(360deg);}}
-        h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 34px;
-            font-weight: 900;
-            background: linear-gradient(90deg, var(--طلایی), #fff1a0, var(--طلایی));
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-top: 40px;
-            text-shadow: 0 0 30px rgba(255,215,0,0.3);
+        .تب.فعال {border-color:var(--طلایی); background:rgba(255,215,0,0.15);}
+        .محتوا {max-width:1100px; margin:0 auto; padding:1rem;}
+        .بخش {display:none;}
+        .بخش.فعال {display:block;}
+        .کارت {
+            background:var(--کارت); border-radius:12px; padding:1.2rem; margin:1rem 0;
+            border-left:3px solid var(--طلایی);
         }
-        .زیرعنوان {font-size: 15px; color: #9a8855; margin-top: 8px; letter-spacing: 2px;}
-        /* کارت‌ها */
-        .باکس {
-            background: rgba(45,27,78,0.6);
-            border: 1px solid rgba(255,215,0,0.25);
-            border-radius: 12px;
-            padding: 22px;
-            margin-top: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: inset 0 0 20px rgba(255,215,0,0.05);
+        .کارت h3 {color:var(--طلایی); margin-bottom:0.5rem;}
+        .کارت p {color:var(--خاکستری); margin-bottom:0.8rem;}
+        .لینک {
+            display:inline-block; background:var(--بنفش); color:white;
+            padding:0.6rem 1.2rem; border-radius:6px; text-decoration:none;
         }
-        h3 {
-            font-family: 'Cinzel', serif;
-            color: var(--طلایی);
-            font-size: 16px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .فرم {
+            background:var(--کارت); border-radius:12px; padding:2rem; max-width:500px; margin:2rem auto;
         }
-        /* دسته‌بندی‌ها */
-        .دسته‌ها {display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;}
-        .دسته {
-            padding: 10px 16px;
-            border: 1px solid rgba(255,215,0,0.35);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: .3s;
-            font-weight: 600;
-            background: rgba(255,215,0,0.05);
+        .فرم h3 {text-align:center; margin-bottom:1.5rem; color:var(--طلایی);}
+        .فرم input, .فرم textarea, .فرم select {
+            width:100%; padding:0.9rem; margin:0.5rem 0 1rem;
+            border:1px solid rgba(255,215,0,0.3); border-radius:8px;
+            background:rgba(0,0,0,0.4); color:white; font-size:1rem;
         }
-        .دسته.فعال {
-            background: rgba(255,215,0,0.18);
-            border-color: var(--طلایی);
-            box-shadow: 0 0 12px rgba(255,215,0,0.3);
+        .فرم button {
+            width:100%; padding:0.9rem; border:none; border-radius:8px;
+            font-size:1rem; font-weight:bold; cursor:pointer;
         }
-        /* ورودی‌ها */
-        input, textarea, select {
-            width: 100%;
-            background: rgba(13,6,24,0.6);
-            border: 1px solid rgba(255,215,0,0.25);
-            padding: 13px;
-            color: #fff;
-            font-size: 15px;
-            margin-top: 10px;
-            border-radius: 8px;
-            outline: none;
-            font-family: inherit;
-        }
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--طلایی);
-            box-shadow: 0 0 10px rgba(255,215,0,0.3);
-        }
-        /* دکمه‌ها */
-        button {
-            width: 100%;
-            padding: 13px;
-            margin-top: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: .3s;
-            font-family: inherit;
-        }
-        .دکمه‌طلایی {
-            background: linear-gradient(90deg, var(--طلایی), var(--طلایی‌تیره));
-            color: #000;
-            box-shadow: var(--سایه);
-        }
-        .دکمه‌طلایی:hover {transform: translateY(-2px); filter: brightness(1.1);}
-        .دکمه‌بنفش {
-            background: transparent;
-            border: 1px solid var(--طلایی);
-            color: var(--طلایی);
-        }
-        .دکمه‌بنفش:hover {background: rgba(255,215,0,0.1);}
-        /* پیش‌نمایش عکس */
-        .پیش‌نمایش {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
-            margin-top: 10px;
-            display: none;
-            border: 2px solid rgba(255,215,0,0.3);
-        }
-        /* آیتم‌ها */
-        .آیتم {
-            background: rgba(13,6,24,0.5);
-            border-right: 3px solid var(--طلایی);
-            padding: 18px;
-            margin-top: 15px;
-            border-radius: 8px;
-            transition: .3s;
-        }
-        .آیتم:hover {border-right-width: 5px; background: rgba(255,215,0,0.05);}
-        .آیتم_عکس {max-width: 100%; border-radius: 6px; margin: 12px 0;}
-        .آیتم_دسته {
-            display: inline-block;
-            font-size: 12px;
-            background: rgba(255,215,0,0.15);
-            padding: 3px 10px;
-            border-radius: 4px;
-            margin-left: 8px;
-        }
-        .آیتم_لینک {
-            color: #ffd700;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-            border-bottom: 1px dashed rgba(255,215,0,0.4);
-        }
-        .آیتم_زمان {font-size: 12px; color: #665533; margin-top: 10px;}
-        .خالی {text-align: center; color: #554422; padding: 35px; font-size: 15px;}
-        .وضعیت {margin-top: 12px; font-size: 14px;}
-        .موفق {color: #ffd700;}
-        .خطا {color: #ff5555;}
-        .پنهان {display: none !important;}
-        /* نوار پایین */
-        .نوارپایین {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            background: rgba(13,6,24,0.9);
-            border-top: 1px solid rgba(255,215,0,0.2);
-            padding: 12px 20px;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-        }
-        .دکمه‌کوچیک {width: auto; padding: 8px 16px; font-size: 14px;}
+        .دکمه-اصلی {background:var(--طلایی); color:black;}
+        .دکمه-خروج {background:transparent; color:var(--خاکستری); border:1px solid #444; margin-top:0.5rem;}
+        .پنهان {display:none !important;}
+        .خالی {text-align:center; color:var(--خاکستری); padding:3rem;}
+        .دکمه-حذف {background:rgba(255,50,50,0.2); color:#FF6666; border:none; padding:0.5rem 1rem; border-radius:6px; margin-top:0.5rem; cursor:pointer;}
     </style>
 </head>
 <body>
-    <!-- ذرات طلایی -->
-    <script>for(let i=0;i<35;i++){let d=document.createElement('div');d.className='ذره';d.style.left=Math.random()*100+'%';d.style.animationDelay=Math.random()*8+'s';d.style.animationDuration=(6+Math.random()*5)+'s';document.write(d.outerHTML);}</script>
 
-    <div class="کانتینر">
-        <!-- سرتیتر -->
-        <div class="سرتیتر">
-            <div class="حلقه"></div>
-            <div class="تاج">👑</div>
-            <h1>VORTEXPLAY</h1>
-            <p class="زیرعنوان">ROYAL GAMING EMPIRE</p>
-        </div>
+<header class="سربرگ">
+    <div class="لوگو">👑 VORTEXPLAY</div>
+    <button class="دکمه-مدیریت" onclick="بازکردن_پنل()">🔐 مدیریت</button>
+</header>
 
-        <!-- دسته‌بندی‌ها -->
-        <div class="باکس">
-            <h3>📂 دسته‌بندی‌ها</h3>
-            <div class="دسته‌ها">
-                <span class="دسته فعال" onclick="انتخاب_دسته('همه')">همه</span>
-                <span class="دسته" onclick="انتخاب_دسته('بازی')">بازی</span>
-                <span class="دسته" onclick="انتخاب_دسته('نرم‌افزار')">نرم‌افزار</span>
-                <span class="دسته" onclick="انتخاب_دسته('آموزش')">آموزش</span>
-                <span class="دسته" onclick="انتخاب_دسته('متفرقه')">متفرقه</span>
-            </div>
-        </div>
+<nav class="نوار">
+    <div class="تب فعال" data-bخش="بازی">🎮 بازی‌ها</div>
+    <div class="تب" data-bخش="پیلود">📦 پیلود</div>
+    <div class="تب" data-bخش="بکاپ">💾 بکاپ</div>
+</nav>
 
-        <!-- لیست پیام‌ها -->
-        <div class="باکس">
-            <h3>📋 بانک فایل‌ها</h3>
-            <div id="لیست">
-                <p class="خالی">در حال بارگذاری از قلمرو پادشاهی... 👑</p>
-            </div>
-        </div>
-
-        <!-- ورود مدیریت -->
-        <div class="باکس" id="بخش_ورود">
-            <h3>🔐 ورود به قلمرو مدیریت</h3>
-            <input type="password" id="رمز" placeholder="رمز ۳۲ رقمی را وارد کن">
-            <button class="دکمه‌بنفش" onclick="بررسی_رمز()">ورود</button>
-            <p id="وضعیت_ورود" class="وضعیت"></p>
-        </div>
-
-        <!-- فرم مدیریت (مخفی) -->
-        <div class="باکس پنهان" id="بخش_مدیریت">
-            <h3>✍️ ارسال فرمان جدید</h3>
-            <select id="انتخاب_دسته_فرم">
-                <option value="بازی">بازی</option>
-                <option value="نرم‌افزار">نرم‌افزار</option>
-                <option value="آموزش">آموزش</option>
-                <option value="متفرقه">متفرقه</option>
-            </select>
-            <textarea id="متن_فرم" rows="3" placeholder="نام فایل، توضیحات یا لینک دانلود..."></textarea>
-            
-            <label style="margin-top:15px; display:block; color:#9a8855;">📸 عکس کاور از گالری:</label>
-            <input type="file" id="عکس_ورودی" accept="image/*" onchange="پیش‌نمایش_عکس(this)">
-            <img id="پیش‌نمایش_عکس" class="پیش‌نمایش" alt="پیش‌نمایش">
-            
-            <input type="text" id="لینک_فرم" placeholder="لینک دانلود (اختیاری)">
-            <button class="دکمه‌طلایی" onclick="ارسال_فرمان()">📤 ارسال به قلمرو</button>
-            <p id="وضعیت_ارسال" class="وضعیت"></p>
-            <button class="دکمه‌بنفش دکمه‌کوچیک" style="margin-top:15px;" onclick="خروج()">خروج از قلمرو</button>
-        </div>
+<main class="محتوا">
+    <div class="بخش فعال" id="بخش-بازی">
+        <h2>🎮 بازی‌ها</h2>
+        <div id="لیست-بازی"></div>
+    </div>
+    <div class="بخش" id="بخش-پیلود">
+        <h2>📦 پیلود</h2>
+        <div id="لیست-پیلود"></div>
+    </div>
+    <div class="بخش" id="بخش-بکاپ">
+        <h2>💾 بکاپ/آموزش</h2>
+        <div id="لیست-بکاپ"></div>
     </div>
 
-    <!-- نوار پایین -->
-    <div class="نوارپایین">
-        <button class="دکمه‌بنفش دکمه‌کوچیک" style="width:100%; margin:0;" onclick="اسکرول_به_بالا()">⚙️ پنل مدیریت</button>
+    <div class="بخش" id="بخش-مدیریت">
+        <div id="فرم-ورود" class="فرم">
+            <h3>🔐 ورود به پنل مدیریت</h3>
+            <input type="password" id="رمز-ورود" placeholder="رمز ۳۲ رقمی را وارد کنید">
+            <button class="دکمه-اصلی" onclick="بررسی_رمز()">ورود</button>
+        </div>
+
+        <div id="فرم-پنل" class="پنهان">
+            <div class="فرم">
+                <h3>➕ افزودن محتوای جدید</h3>
+                <select id="نوع">
+                    <option value="بازی">بازی</option>
+                    <option value="پیلود">پیلود</option>
+                    <option value="بکاپ">بکاپ/آموزش</option>
+                </select>
+                <input type="text" id="عنوان" placeholder="عنوان">
+                <textarea id="توضیحات" rows="3" placeholder="توضیحات کوتاه"></textarea>
+                <input type="url" id="لینک" placeholder="لینک دانلود">
+                <button class="دکمه-اصلی" onclick="ثبت()">✅ ثبت و نمایش</button>
+                <button class="دکمه-خروج" onclick="خروج()">خروج از پنل</button>
+            </div>
+
+            <div class="فرم" style="margin-top:2rem;">
+                <h3>✏️ ویرایش یا حذف</h3>
+                <select id="انتخاب-مورد" onchange="بارگذاری_مورد()">
+                    <option value="">-- یک مورد را انتخاب کنید --</option>
+                </select>
+                <input type="text" id="ویرایش-عنوان" placeholder="عنوان جدید">
+                <textarea id="ویرایش-توضیحات" rows="3" placeholder="توضیحات جدید"></textarea>
+                <input type="url" id="ویرایش-لینک" placeholder="لینک جدید">
+                <button class="دکمه-اصلی" onclick="ذخیره()">💾 ذخیره تغییرات</button>
+                <button class="دکمه-حذف" onclick="حذف()">🗑️ حذف این مورد</button>
+            </div>
+        </div>
     </div>
+</main>
 
 <script>
-// ⚙ تنظیمات — از صفحه Supabase بگیر
-const SUPABASE_URL = "آدرس-پروژه-سوپابیس";
-const SUPABASE_KEY = "کلید-عمومی-سوپابیس";
-const رمز_مدیریت = "VP26-9K7X-QR4M-2P8Z-L5DN-3F9G-7H2J-6K4L"; // رمز ۳۲ رقمی
+// === اتصال دیتابیس ===
+const SUPABASE_URL = "https://ysovsscszmytalyrodeg.supabase.co";
+const SUPABASE_KEY = "sb_publishable_4OxYjCjqv5vxo2u6Ck03sg_ziAjqVGO";
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// اتصال به دیتابیس
-const { createClient } = supabase;
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+// === رمز ۳۲ رقمی ===
+const رمز_مدیریت = "VORTEX-992383-SHAHRIAR-2026-PLAY";
+let دسترسی_داده = false;
+let شناسه_ویرایش = null;
 
-let دسترسی_مدیریت = false;
-let دسته_فعال = "همه";
-let همه_پیامها = [];
+// === تعویض تب‌ها ===
+document.querySelectorAll(".تب").forEach(تب => {
+    تب.addEventListener("click", () => {
+        document.querySelectorAll(".تب").forEach(t => t.classList.remove("فعال"));
+        تب.classList.add("فعال");
+        const نام = تب.getAttribute("data-bخش");
+        document.querySelectorAll(".بخش").forEach(b => b.classList.remove("فعال"));
+        document.getElementById(`بخش-${نام}`).classList.add("فعال");
+    });
+});
 
-// اسکرول به بالا
-function اسکرول_به_بالا() {
-    window.scrollTo({top:0, behavior:'smooth'});
-    document.getElementById('رمز').focus();
+function بازکردن_پنل() {
+    document.querySelectorAll(".تب").forEach(t => t.classList.remove("فعال"));
+    document.querySelectorAll(".بخش").forEach(b => b.classList.remove("فعال"));
+    document.getElementById("بخش-مدیریت").classList.add("فعال");
+    if (دسترسی_داده) {
+        document.getElementById("فرم-ورود").classList.add("پنهان");
+        document.getElementById("فرم-پنل").classList.remove("پنهان");
+    }
 }
 
-// بررسی رمز
 function بررسی_رمز() {
-    const ورودی = document.getElementById('رمز').value.trim();
-    const وضعیت = document.getElementById('وضعیت_ورود');
-    
+    const ورودی = document.getElementById("رمز-ورود").value.trim();
     if (ورودی === رمز_مدیریت) {
-        دسترسی_مدیریت = true;
-        وضعیت.className = 'وضعیت موفق';
-        وضعیت.textContent = '✅ خوش اومدی فرمانروا! قلمرو در اختیار توست';
-        document.getElementById('بخش_ورود').classList.add('پنهان');
-        document.getElementById('بخش_مدیریت').classList.remove('پنهان');
+        دسترسی_داده = true;
+        document.getElementById("فرم-ورود").classList.add("پنهان");
+        document.getElementById("فرم-پنل").classList.remove("پنهان");
+        بارگذاری_همه();
+        پر_کردن_لیست();
     } else {
-        وضعیت.className = 'وضعیت خطا';
-        وضعیت.textContent = '❌ کلید قلمرو نادرست است';
+        alert("❌ رمز عبور اشتباه است!");
     }
 }
 
 function خروج() {
-    دسترسی_مدیریت = false;
-    document.getElementById('بخش_مدیریت').classList.add('پنهان');
-    document.getElementById('بخش_ورود').classList.remove('پنهان');
-    document.getElementById('وضعیت_ورود').textContent = '';
-    document.getElementById('رمز').value = '';
+    دسترسی_داده = false;
+    شناسه_ویرایش = null;
+    document.getElementById("فرم-ورود").classList.remove("پنهان");
+    document.getElementById("فرم-پنل").classList.add("پنهان");
+    document.getElementById("رمز-ورود").value = "";
 }
 
-// پیش‌نمایش عکس
-function پیش‌نمایش_عکس(ورودی) {
-    const فایل = ورودی.files[0];
-    if (!فایل) return;
-    const خواننده = new FileReader();
-    خواننده.onload = e => {
-        const تصویر = document.getElementById('پیش‌نمایش_عکس');
-        تصویر.src = e.target.result;
-        تصویر.style.display = 'block';
-    };
-    خواننده.readAsDataURL(فایل);
-}
+// === خواندن همه محتوا از دیتابیس ===
+async function بارگذاری_همه() {
+    const { data, error } = await supabase
+        .from("محتوا")
+        .select("*")
+        .order("ایجاد_شده", { ascending: false });
 
-// انتخاب دسته
-function انتخاب_دسته(نام) {
-    دسته_فعال = نام;
-    document.querySelectorAll('.دسته').forEach(d => d.classList.remove('فعال'));
-    event.target.classList.add('فعال');
-    نمایش_پیامها();
-}
-
-// بارگذاری از دیتابیس
-async function بارگذاری_پیامها() {
-    try {
-        const { data, error } = await supabase
-            .from('پیامها')
-            .select('*')
-            .order('زمان', { ascending: false });
-        
-        if (error) throw error;
-        همه_پیامها = data || [];
-        نمایش_پیامها();
-    } catch (err) {
-        document.getElementById('لیست').innerHTML = 
-            `<p class="خالی">❌ خطا در اتصال به قلمرو<br>${err.message}</p>`;
-    }
-}
-
-// نمایش پیام‌ها
-function نمایش_پیامها() {
-    const لیست = document.getElementById('لیست');
-    const فیلتر = دسته_فعال === 'همه' 
-        ? همه_پیامها 
-        : همه_پیامها.filter(p => p.دسته === دسته_فعال);
-    
-    if (!فیلتر.length) {
-        لیست.innerHTML = '<p class="خالی">هنوز فرمانی صادر نشده است 👑</p>';
+    if (error) {
+        console.error("خطا در خواندن داده‌ها:", error);
         return;
     }
 
-    لیست.innerHTML = فیلتر.map(p => `
-        <div class="آیتم">
-            <span class="آیتم_دسته">${p.دسته}</span>
-            <div style="margin-top:10px; line-height:1.8; white-space:pre-wrap;">${p.متن.replace(/</g,"&lt;")}</div>
-            ${p.عکس ? `<img src="${p.عکس}" class="آیتم_عکس" alt="کاور">` : ''}
-            ${p.لینک ? `<a href="${p.لینک}" target="_blank" class="آیتم_لینک">🔗 دریافت / مشاهده</a>` : ''}
-            <div class="آیتم_زمان">🕐 ${new Date(p.زمان).toLocaleString('fa-IR')}</div>
+    ["بازی", "پیلود", "بکاپ"].forEach(نوع => {
+        const کانتینر = document.getElementById(`لیست-${نوع}`);
+        const موارد = data.filter(m => m.نوع === نوع);
+        کانتینر.innerHTML = موارد.length === 0
+            ? `<p class="خالی">هنوز محتوایی اضافه نشده است</p>`
+            : موارد.map(ساخت_کارت).join("");
+    });
+}
+
+function ساخت_کارت(مورد) {
+    return `
+        <div class="کارت">
+            <h3>${مورد.عنوان}</h3>
+            <p>${مورد.توضیحات || "بدون توضیح"}</p>
+            <a href="${مورد.لینک}" target="_blank" class="لینک">⬇️ دانلود</a>
         </div>
-    `).join('');
+    `;
 }
 
-// ارسال پیام جدید
-async function ارسال_فرمان() {
-    if (!دسترسی_مدیریت) return;
-    
-    const دسته = document.getElementById('انتخاب_دسته_فرم').value;
-    const متن = document.getElementById('متن_فرم').value.trim();
-    const لینک = document.getElementById('لینک_فرم').value.trim();
-    const عکس_المان = document.getElementById('پیش‌نمایش_عکس');
-    const وضعیت = document.getElementById('وضعیت_ارسال');
-    
-    if (!متن) {
-        وضعیت.className = 'وضعیت خطا';
-        وضعیت.textContent = '❌ متنی نوشته نشده!';
+// === ثبت محتوای جدید ===
+async function ثبت() {
+    const داده = {
+        نوع: document.getElementById("نوع").value,
+        عنوان: document.getElementById("عنوان").value.trim(),
+        توضیحات: document.getElementById("توضیحات").value.trim(),
+        لینک: document.getElementById("لینک").value.trim()
+    };
+
+    if (!داده.عنوان || !داده.لینک) {
+        alert("لطفاً عنوان و لینک را کامل کنید!");
         return;
     }
 
-    const عکس_داده = عکس_المان.style.display === 'block' ? عکس_المان.src : null;
+    const { error } = await supabase.from("محتوا").insert([داده]);
+    
+    if (error) {
+        alert("❌ اول جدول را در ساپابیس بساز! دستورش در پایین آمده.");
+        return;
+    }
 
-    وضعیت.className = 'وضعیت';
-    وضعیت.textContent = 'در حال ثبت در قلمرو...';
+    alert("✅ با موفقیت اضافه شد! همه می‌بینند");
+    document.getElementById("عنوان").value = "";
+    document.getElementById("توضیحات").value = "";
+    document.getElementById("لینک").value = "";
+    await بارگذاری_همه();
+    await پر_کردن_لیست();
+}
 
-    try {
-        const { error } = await supabase.from('پیامها').insert([{
-            دسته, متن, لینک, عکس: عکس_داده
-        }]);
+// === پر کردن لیست برای ویرایش ===
+async function پر_کردن_لیست() {
+    const { data } = await supabase.from("محتوا").select("*").order("ایجاد_شده", { ascending: false });
+    const لیست = document.getElementById("انتخاب-مورد");
+    لیست.innerHTML = `<option value="">-- انتخاب کنید --</option>`;
+    data.forEach(m => {
+        لیست.innerHTML += `<option value="${m.id}">${m.نوع} — ${m.عنوان}</option>`;
+    });
+}
 
-        if (error) throw error;
+async function بارگذاری_مورد() {
+    شناسه_ویرایش = document.getElementById("انتخاب-مورد").value;
+    if (!شناسه_ویرایش) return;
 
-        // پاک کردن فرم
-        document.getElementById('متن_فرم').value = '';
-        document.getElementById('لینک_فرم').value = '';
-        document.getElementById('عکس_ورودی').value = '';
-        عکس_المان.style.display = 'none';
-
-        وضعیت.className = 'وضعیت موفق';
-        وضعیت.textContent = '✅ فرمان با موفقیت صادر شد!';
-        
-        await بارگذاری_پیامها();
-        setTimeout(() => وضعیت.textContent = '', 3000);
-    } catch (err) {
-        وضعیت.className = 'وضعیت خطا';
-        وضعیت.textContent = `❌ خطا: ${err.message}`;
+    const { data } = await supabase.from("محتوا").select("*").eq("id", شناسه_ویرایش).single();
+    if (data) {
+        document.getElementById("ویرایش-عنوان").value = data.عنوان || "";
+        document.getElementById("ویرایش-توضیحات").value = data.توضیحات || "";
+        document.getElementById("ویرایش-لینک").value = data.لینک || "";
     }
 }
 
-// شروع
-بارگذاری_پیامها();
-// هر ۲۰ ثانیه بروزرسانی خودکار
-setInterval(بارگذاری_پیامها, 20000);
+// === ذخیره ویرایش ===
+async function ذخیره() {
+    if (!شناسه_ویرایش) {
+        alert("ابتدا یک مورد را انتخاب کنید!");
+        return;
+    }
+
+    const { error } = await supabase.from("محتوا")
+        .update({
+            عنوان: document.getElementById("ویرایش-عنوان").value.trim(),
+            توضیحات: document.getElementById("ویرایش-توضیحات").value.trim(),
+            لینک: document.getElementById("ویرایش-لینک").value.trim()
+        })
+        .eq("id", شناسه_ویرایش);
+
+    if (error) {
+        alert("❌ خطا: " + error.message);
+    } else {
+        alert("✅ ویرایش شد!");
+        await بارگذاری_همه();
+        await پر_کردن_لیست();
+    }
+}
+
+// === حذف ===
+async function حذف() {
+    if (!شناسه_ویرایش) {
+        alert("ابتدا یک مورد را انتخاب کنید!");
+        return;
+    }
+    if (!confirm("آیا مطمئن هستید؟")) return;
+
+    const { error } = await supabase.from("محتوا").delete().eq("id", شناسه_ویرایش);
+    
+    if (error) {
+        alert("❌ خطا: " + error.message);
+    } else {
+        alert("✅ حذف شد!");
+        شناسه_ویرایش = null;
+        await بارگذاری_همه();
+        await پر_کردن_لیست();
+    }
+}
+
+// === شروع اولیه ===
+بارگذاری_همه();
 </script>
 </body>
 </html>
+CREATE TABLE محتوا (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  نوع TEXT NOT NULL,
+  عنوان TEXT NOT NULL,
+  توضیحات TEXT,
+  لینک TEXT NOT NULL,
+  ایجاد_شده TIMESTAMP DEFAULT NOW()
+);
+
+ALTER TABLE محتوا ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "همه می‌بینند" ON محتوا FOR SELECT USING (true);
+CREATE POLICY "مدیر تغییر می‌دهد" ON محتوا FOR ALL USING (true);
