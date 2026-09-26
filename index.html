@@ -1,340 +1,181 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VORTEXPLAY 👑</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-    <style>
-        :root {
-            --طلایی: #FFD700;
-            --بنفش: #9932CC;
-            --تیره: #050510;
-            --کارت: #12122A;
-            --سفید: #FFFFFF;
-            --خاکستری: #AAAAAA;
-        }
-        * {margin:0; padding:0; box-sizing:border-box; font-family:system-ui, sans-serif;}
-        body {
-            background:var(--تیره);
-            color:var(--سفید);
-            min-height:100vh;
-            background:radial-gradient(circle at top, #1A1A3A 0%, #050510 70%);
-        }
-        .سربرگ {
-            padding:1.2rem 1.5rem;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            border-bottom:2px solid var(--طلایی);
-        }
-        .لوگو {font-size:1.8rem; font-weight:bold; color:var(--طلایی);}
-        .دکمه-مدیریت {
-            background:var(--بنفش);
-            padding:0.7rem 1.2rem;
-            border-radius:8px;
-            cursor:pointer;
-            font-weight:bold;
-            border:none;
-            color:white;
-        }
-        .نوار {
-            display:flex; gap:0.5rem; padding:1rem; justify-content:center; flex-wrap:wrap;
-        }
-        .تب {
-            padding:0.7rem 1.2rem; border-radius:8px; cursor:pointer; border:2px solid transparent;
-        }
-        .تب.فعال {border-color:var(--طلایی); background:rgba(255,215,0,0.15);}
-        .محتوا {max-width:1100px; margin:0 auto; padding:1rem;}
-        .بخش {display:none;}
-        .بخش.فعال {display:block;}
-        .کارت {
-            background:var(--کارت); border-radius:12px; padding:1.2rem; margin:1rem 0;
-            border-left:3px solid var(--طلایی);
-        }
-        .کارت h3 {color:var(--طلایی); margin-bottom:0.5rem;}
-        .کارت p {color:var(--خاکستری); margin-bottom:0.8rem;}
-        .لینک {
-            display:inline-block; background:var(--بنفش); color:white;
-            padding:0.6rem 1.2rem; border-radius:6px; text-decoration:none;
-        }
-        .فرم {
-            background:var(--کارت); border-radius:12px; padding:2rem; max-width:500px; margin:2rem auto;
-        }
-        .فرم h3 {text-align:center; margin-bottom:1.5rem; color:var(--طلایی);}
-        .فرم input, .فرم textarea, .فرم select {
-            width:100%; padding:0.9rem; margin:0.5rem 0 1rem;
-            border:1px solid rgba(255,215,0,0.3); border-radius:8px;
-            background:rgba(0,0,0,0.4); color:white; font-size:1rem;
-        }
-        .فرم button {
-            width:100%; padding:0.9rem; border:none; border-radius:8px;
-            font-size:1rem; font-weight:bold; cursor:pointer;
-        }
-        .دکمه-اصلی {background:var(--طلایی); color:black;}
-        .دکمه-خروج {background:transparent; color:var(--خاکستری); border:1px solid #444; margin-top:0.5rem;}
-        .پنهان {display:none !important;}
-        .خالی {text-align:center; color:var(--خاکستری); padding:3rem;}
-        .دکمه-حذف {background:rgba(255,50,50,0.2); color:#FF6666; border:none; padding:0.5rem 1rem; border-radius:6px; margin-top:0.5rem; cursor:pointer;}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وب‌سایت من</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background-size: cover;
+      background-position: center;
+      transition: background-image 0.5s ease-in-out;
+      color: #fff;
+    }
+    .container {
+      background: rgba(15, 32, 39, 0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 198, 255, 0.3);
+      padding: 35px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 8px 32px 0 rgba(0, 198, 255, 0.2);
+      max-width: 420px;
+      width: 90%;
+    }
+    h1 {
+      margin-bottom: 15px;
+      font-size: 26px;
+      color: #00c6ff;
+      text-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+    }
+    p {
+      margin-bottom: 25px;
+      color: #e0e6ed;
+      line-height: 1.6;
+    }
+    .admin-btn {
+      background: linear-gradient(45deg, #0072ff, #00c6ff);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+    .admin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 198, 255, 0.6);
+    }
+    /* استایل پنل مدیریت */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(10, 25, 47, 0.85);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #0d1b2a;
+      border: 1px solid #00c6ff;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 380px;
+      text-align: right;
+      box-shadow: 0 10px 30px rgba(0, 198, 255, 0.3);
+    }
+    .modal-content h3 {
+      color: #00c6ff;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #1b263b;
+      background: #1b263b;
+      color: #fff;
+      outline: none;
+      transition: border 0.3s;
+    }
+    input:focus {
+      border-color: #00c6ff;
+    }
+    .save-btn {
+      width: 100%;
+      background: linear-gradient(45deg, #0072ff, #00c6ff);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .close-btn {
+      background: #e63946;
+      margin-top: 8px;
+    }
+  </style>
 </head>
 <body>
 
-<header class="سربرگ">
-    <div class="لوگو">👑 VORTEXPLAY</div>
-    <button class="دکمه-مدیریت" onclick="بازکردن_پنل()">🔐 مدیریت</button>
-</header>
+  <div class="container">
+    <h1>به وب‌سایت من خوش آمدید</h1>
+    <p>این یک سایت میزبانی شده روی GitHub Pages با تم آبی زیبا است.</p>
+    <button class="admin-btn" onclick="openAdmin()">ورود به پنل مدیریت</button>
+  </div>
 
-<nav class="نوار">
-    <div class="تب فعال" data-bخش="بازی">🎮 بازی‌ها</div>
-    <div class="تب" data-bخش="پیلود">📦 پیلود</div>
-    <div class="تب" data-bخش="بکاپ">💾 بکاپ</div>
-</nav>
-
-<main class="محتوا">
-    <div class="بخش فعال" id="بخش-بازی">
-        <h2>🎮 بازی‌ها</h2>
-        <div id="لیست-بازی"></div>
+  <!-- پنل مدیریت -->
+  <div class="modal" id="adminModal">
+    <div class="modal-content">
+      <h3>پنل تغییر پس‌زمینه</h3>
+      <input type="password" id="tokenInput" placeholder="رمز عبور را وارد کنید">
+      <input type="text" id="bgUrlInput" placeholder="لینک مستقیم عکس (https://...)">
+      <button class="save-btn" onclick="saveBackground()">ذخیره پس‌زمینه</button>
+      <button class="save-btn close-btn" onclick="closeAdmin()">بستن</button>
     </div>
-    <div class="بخش" id="بخش-پیلود">
-        <h2>📦 پیلود</h2>
-        <div id="لیست-پیلود"></div>
-    </div>
-    <div class="بخش" id="بخش-بکاپ">
-        <h2>💾 بکاپ/آموزش</h2>
-        <div id="لیست-بکاپ"></div>
-    </div>
+  </div>
 
-    <div class="بخش" id="بخش-مدیریت">
-        <div id="فرم-ورود" class="فرم">
-            <h3>🔐 ورود به پنل مدیریت</h3>
-            <input type="password" id="رمز-ورود" placeholder="رمز ۳۲ رقمی را وارد کنید">
-            <button class="دکمه-اصلی" onclick="بررسی_رمز()">ورود</button>
-        </div>
+  <script>
+    // رمز عبور برای ورود به پنل
+    const SECRET_TOKEN = "1234";
 
-        <div id="فرم-پنل" class="پنهان">
-            <div class="فرم">
-                <h3>➕ افزودن محتوای جدید</h3>
-                <select id="نوع">
-                    <option value="بازی">بازی</option>
-                    <option value="پیلود">پیلود</option>
-                    <option value="بکاپ">بکاپ/آموزش</option>
-                </select>
-                <input type="text" id="عنوان" placeholder="عنوان">
-                <textarea id="توضیحات" rows="3" placeholder="توضیحات کوتاه"></textarea>
-                <input type="url" id="لینک" placeholder="لینک دانلود">
-                <button class="دکمه-اصلی" onclick="ثبت()">✅ ثبت و نمایش</button>
-                <button class="دکمه-خروج" onclick="خروج()">خروج از پنل</button>
-            </div>
-
-            <div class="فرم" style="margin-top:2rem;">
-                <h3>✏️ ویرایش یا حذف</h3>
-                <select id="انتخاب-مورد" onchange="بارگذاری_مورد()">
-                    <option value="">-- یک مورد را انتخاب کنید --</option>
-                </select>
-                <input type="text" id="ویرایش-عنوان" placeholder="عنوان جدید">
-                <textarea id="ویرایش-توضیحات" rows="3" placeholder="توضیحات جدید"></textarea>
-                <input type="url" id="ویرایش-لینک" placeholder="لینک جدید">
-                <button class="دکمه-اصلی" onclick="ذخیره()">💾 ذخیره تغییرات</button>
-                <button class="دکمه-حذف" onclick="حذف()">🗑️ حذف این مورد</button>
-            </div>
-        </div>
-    </div>
-</main>
-
-<script>
-// === اتصال دیتابیس ===
-const SUPABASE_URL = "https://ysovsscszmytalyrodeg.supabase.co";
-const SUPABASE_KEY = "sb_publishable_4OxYjCjqv5vxo2u6Ck03sg_ziAjqVGO";
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// === رمز ۳۲ رقمی ===
-const رمز_مدیریت = "VORTEX-992383-SHAHRIAR-2026-PLAY";
-let دسترسی_داده = false;
-let شناسه_ویرایش = null;
-
-// === تعویض تب‌ها ===
-document.querySelectorAll(".تب").forEach(تب => {
-    تب.addEventListener("click", () => {
-        document.querySelectorAll(".تب").forEach(t => t.classList.remove("فعال"));
-        تب.classList.add("فعال");
-        const نام = تب.getAttribute("data-bخش");
-        document.querySelectorAll(".بخش").forEach(b => b.classList.remove("فعال"));
-        document.getElementById(`بخش-${نام}`).classList.add("فعال");
-    });
-});
-
-function بازکردن_پنل() {
-    document.querySelectorAll(".تب").forEach(t => t.classList.remove("فعال"));
-    document.querySelectorAll(".بخش").forEach(b => b.classList.remove("فعال"));
-    document.getElementById("بخش-مدیریت").classList.add("فعال");
-    if (دسترسی_داده) {
-        document.getElementById("فرم-ورود").classList.add("پنهان");
-        document.getElementById("فرم-پنل").classList.remove("پنهان");
-    }
-}
-
-function بررسی_رمز() {
-    const ورودی = document.getElementById("رمز-ورود").value.trim();
-    if (ورودی === رمز_مدیریت) {
-        دسترسی_داده = true;
-        document.getElementById("فرم-ورود").classList.add("پنهان");
-        document.getElementById("فرم-پنل").classList.remove("پنهان");
-        بارگذاری_همه();
-        پر_کردن_لیست();
-    } else {
-        alert("❌ رمز عبور اشتباه است!");
-    }
-}
-
-function خروج() {
-    دسترسی_داده = false;
-    شناسه_ویرایش = null;
-    document.getElementById("فرم-ورود").classList.remove("پنهان");
-    document.getElementById("فرم-پنل").classList.add("پنهان");
-    document.getElementById("رمز-ورود").value = "";
-}
-
-// === خواندن همه محتوا از دیتابیس ===
-async function بارگذاری_همه() {
-    const { data, error } = await supabase
-        .from("محتوا")
-        .select("*")
-        .order("ایجاد_شده", { ascending: false });
-
-    if (error) {
-        console.error("خطا در خواندن داده‌ها:", error);
-        return;
-    }
-
-    ["بازی", "پیلود", "بکاپ"].forEach(نوع => {
-        const کانتینر = document.getElementById(`لیست-${نوع}`);
-        const موارد = data.filter(m => m.نوع === نوع);
-        کانتینر.innerHTML = موارد.length === 0
-            ? `<p class="خالی">هنوز محتوایی اضافه نشده است</p>`
-            : موارد.map(ساخت_کارت).join("");
-    });
-}
-
-function ساخت_کارت(مورد) {
-    return `
-        <div class="کارت">
-            <h3>${مورد.عنوان}</h3>
-            <p>${مورد.توضیحات || "بدون توضیح"}</p>
-            <a href="${مورد.لینک}" target="_blank" class="لینک">⬇️ دانلود</a>
-        </div>
-    `;
-}
-
-// === ثبت محتوای جدید ===
-async function ثبت() {
-    const داده = {
-        نوع: document.getElementById("نوع").value,
-        عنوان: document.getElementById("عنوان").value.trim(),
-        توضیحات: document.getElementById("توضیحات").value.trim(),
-        لینک: document.getElementById("لینک").value.trim()
+    window.onload = function() {
+      const savedBg = localStorage.getItem('custom_bg');
+      if (savedBg) {
+        document.body.style.backgroundImage = `url('${savedBg}')`;
+      }
     };
 
-    if (!داده.عنوان || !داده.لینک) {
-        alert("لطفاً عنوان و لینک را کامل کنید!");
+    function openAdmin() {
+      document.getElementById('adminModal').style.display = 'flex';
+    }
+
+    function closeAdmin() {
+      document.getElementById('adminModal').style.display = 'none';
+    }
+
+    function saveBackground() {
+      const token = document.getElementById('tokenInput').value;
+      const bgUrl = document.getElementById('bgUrlInput').value;
+
+      if (token !== SECRET_TOKEN) {
+        alert("رمز عبور اشتباه است!");
         return;
-    }
+      }
 
-    const { error } = await supabase.from("محتوا").insert([داده]);
-    
-    if (error) {
-        alert("❌ اول جدول را در ساپابیس بساز! دستورش در پایین آمده.");
+      if (!bgUrl) {
+        alert("لطفاً لینک عکس را وارد کنید.");
         return;
+      }
+
+      localStorage.setItem('custom_bg', bgUrl);
+      document.body.style.backgroundImage = `url('${bgUrl}')`;
+      alert("پس‌زمینه با موفقیت تغییر کرد!");
+      closeAdmin();
     }
+  </script>
 
-    alert("✅ با موفقیت اضافه شد! همه می‌بینند");
-    document.getElementById("عنوان").value = "";
-    document.getElementById("توضیحات").value = "";
-    document.getElementById("لینک").value = "";
-    await بارگذاری_همه();
-    await پر_کردن_لیست();
-}
-
-// === پر کردن لیست برای ویرایش ===
-async function پر_کردن_لیست() {
-    const { data } = await supabase.from("محتوا").select("*").order("ایجاد_شده", { ascending: false });
-    const لیست = document.getElementById("انتخاب-مورد");
-    لیست.innerHTML = `<option value="">-- انتخاب کنید --</option>`;
-    data.forEach(m => {
-        لیست.innerHTML += `<option value="${m.id}">${m.نوع} — ${m.عنوان}</option>`;
-    });
-}
-
-async function بارگذاری_مورد() {
-    شناسه_ویرایش = document.getElementById("انتخاب-مورد").value;
-    if (!شناسه_ویرایش) return;
-
-    const { data } = await supabase.from("محتوا").select("*").eq("id", شناسه_ویرایش).single();
-    if (data) {
-        document.getElementById("ویرایش-عنوان").value = data.عنوان || "";
-        document.getElementById("ویرایش-توضیحات").value = data.توضیحات || "";
-        document.getElementById("ویرایش-لینک").value = data.لینک || "";
-    }
-}
-
-// === ذخیره ویرایش ===
-async function ذخیره() {
-    if (!شناسه_ویرایش) {
-        alert("ابتدا یک مورد را انتخاب کنید!");
-        return;
-    }
-
-    const { error } = await supabase.from("محتوا")
-        .update({
-            عنوان: document.getElementById("ویرایش-عنوان").value.trim(),
-            توضیحات: document.getElementById("ویرایش-توضیحات").value.trim(),
-            لینک: document.getElementById("ویرایش-لینک").value.trim()
-        })
-        .eq("id", شناسه_ویرایش);
-
-    if (error) {
-        alert("❌ خطا: " + error.message);
-    } else {
-        alert("✅ ویرایش شد!");
-        await بارگذاری_همه();
-        await پر_کردن_لیست();
-    }
-}
-
-// === حذف ===
-async function حذف() {
-    if (!شناسه_ویرایش) {
-        alert("ابتدا یک مورد را انتخاب کنید!");
-        return;
-    }
-    if (!confirm("آیا مطمئن هستید؟")) return;
-
-    const { error } = await supabase.from("محتوا").delete().eq("id", شناسه_ویرایش);
-    
-    if (error) {
-        alert("❌ خطا: " + error.message);
-    } else {
-        alert("✅ حذف شد!");
-        شناسه_ویرایش = null;
-        await بارگذاری_همه();
-        await پر_کردن_لیست();
-    }
-}
-
-// === شروع اولیه ===
-بارگذاری_همه();
-</script>
 </body>
 </html>
-CREATE TABLE محتوا (
-  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  نوع TEXT NOT NULL,
-  عنوان TEXT NOT NULL,
-  توضیحات TEXT,
-  لینک TEXT NOT NULL,
-  ایجاد_شده TIMESTAMP DEFAULT NOW()
-);
-
-ALTER TABLE محتوا ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "همه می‌بینند" ON محتوا FOR SELECT USING (true);
-CREATE POLICY "مدیر تغییر می‌دهد" ON محتوا FOR ALL USING (true);
